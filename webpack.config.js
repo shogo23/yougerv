@@ -8,8 +8,10 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 module.exports = {
     mode: 'production',
     entry: {
-        app: './src/app.js'
+        app: './src/app.js',
+        footer: './src/footer.js'
     },
+
     output: {
         path: path.resolve(__dirname, 'public/dist'),
         filename: 'js/[name].js'
@@ -34,11 +36,13 @@ module.exports = {
             'CHANGELOG.md',
             'CODE_OF_CONDUCT.md',
             'composer.json',
+            'composer.lock',
             'CONTRIBUTING.md',
             'DCO.txt',
             'env',
             'lisense.txt',
             'package.json',
+            'package-lock.json',
             'phpdoc.dist.xml',
             'PULL_REQUEST_TEMPLATE.md',
             'README.md',
@@ -90,15 +94,8 @@ module.exports = {
 
         new webpack.ProvidePlugin({
             $: 'jquery',
-            jQuery: 'jquery',
-        }),
-
-        // new webpack.ProvidePlugin({
-        //     Vue: ['vue/dist/vue.esm.js', 'default']
-        // }),
-        // new webpack.ProvidePlugin({
-        //     axios: 'axios'
-        // }),
+            jQuery: 'jquery'
+        })
     ],
 
     //Minimize Css.

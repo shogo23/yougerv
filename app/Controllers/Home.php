@@ -2,15 +2,12 @@
 
 class Home extends BaseController
 {
-	public function index()
-	{
-		return view('welcome_message');
-	}
+	public function index() {
+		
+		$data = [
+			'title' => 'Home - The CI 4'
+		];
 
-	//--------------------------------------------------------------------
-	
-	public function test() {
-		echo 123;
+		return view('home/home', $data);
 	}
-
 }

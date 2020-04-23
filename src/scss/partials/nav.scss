@@ -1,0 +1,73 @@
+.main_nav {
+    border-bottom: 1px solid map-get($main_nav, borderColor);
+    background-color: map-get($main_nav, bgColor);
+    color: map-get($main_nav, fontColor);
+
+    .links_content {
+        padding: 10px;
+
+        .logo_container {
+            width: 10%;
+            float: left;
+            text-align: center;
+            font-family: map-get($siteLogo, font);
+            font-size: map-get($siteLogo, size);
+
+            a {
+                color: map-get($siteLogoLink, color);
+                text-decoration: map-get($siteLogoLink, decoration);
+            }
+        }
+
+        .search_container {
+            width: 70%;
+            float: left;
+            
+            .text_input {
+                border: 1px solid #fff;
+                width: 80%;
+                margin: 0 auto;
+                background-color: #fff;
+                
+                .search {
+                    width: 95.5%;
+                    border: none;
+                    padding: 3px 5px;
+                    outline: none;
+                }
+
+                .search-btn {
+                    cursor: pointer;
+                    color: map-get($main_nav, bgColor);
+                }
+
+                .search-btn:active {
+                    position: relative;
+                    top: 1px;
+                    left: 1px;
+                }
+            }
+        }
+
+        .links_container {
+            width: 20%;
+            float: left;
+
+            ul {
+                text-align: center;
+                position: relative;
+                top: 3px;
+
+                li {
+                    display: inline-block;
+                    margin: 0 3%;
+
+                    a {
+                        color: map-get($main_nav, fontColor);
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+}

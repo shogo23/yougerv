@@ -70,7 +70,7 @@
 </head>
 <body>
 	<div class="wrap">
-		<h1>404 - File Not Found</h1>
+		<h1>404 - File Not Found< :D :D</h1>
 
 		<p>
 			<?php if (! empty($message) && $message !== '(null)') : ?>

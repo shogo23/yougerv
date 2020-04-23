@@ -22,6 +22,7 @@ defined('APP_NAMESPACE') || define('APP_NAMESPACE', 'App');
 | the vendor folder is in the Root directory, but you can customize that here.
 */
 defined('COMPOSER_PATH') || define('COMPOSER_PATH', ROOTPATH . 'vendor/autoload.php');
+define('FFMPEG', ROOTPATH . 'vendor/php-ffmpeg/php-ffmpeg/src/FFMPEG/FFMPEG.php');
 
 /*
 |--------------------------------------------------------------------------

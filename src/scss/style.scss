@@ -1,5 +1,17 @@
-$body-color: red;
 
-body {
-  color: $body-color;
+/*Import Assets Files*/
+@import 'assets/colors';
+@import 'assets/fonts';
+@import 'assets/mixins';
+
+@import 'https://fonts.googleapis.com/css2?family=Anton&display=swap';
+
+.clear {
+    clear: both;
 }
+
+/* Navigation menu Style */
+@import 'partials/nav';
+
+/* Import Pages Styles Files */
+@import 'pages/home';

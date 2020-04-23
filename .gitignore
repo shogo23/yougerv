@@ -130,3 +130,5 @@ public/dist
 
 
 package-lock.json
+composer.lock
+.env
