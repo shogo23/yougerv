@@ -1,3 +1,7 @@
+<?php
+    //Scss path for this view file /src/sess/pages/home.scss
+?>
+
 <?= $this->extend('template') ?>
 
 <?= $this->section('content') ?>

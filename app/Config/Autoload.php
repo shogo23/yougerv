@@ -53,6 +53,8 @@ class Autoload extends \CodeIgniter\Config\AutoloadConfig
 			'App'         => APPPATH,                // To ensure filters, etc still found,
 			APP_NAMESPACE => APPPATH,                // For custom namespace
 			'Config'      => APPPATH . 'Config',
+			'Assets'      => APPPATH . 'Assets',
+			'Validation' => APPPATH . 'Validation'
 		];
 
 		/**
@@ -71,7 +73,10 @@ class Autoload extends \CodeIgniter\Config\AutoloadConfig
 		 *       'MyClass'   => '/path/to/class/file.php'
 		 *   ];
 		 */
-		$classmap = [];
+		$classmap = [
+			'Assets' => APPPATH . '/Assets/Assets.php',
+			'Validation' => APPPATH . '/Validation/LoginRules.php'
+		];
 
 		//--------------------------------------------------------------------
 		// Do Not Edit Below This Line

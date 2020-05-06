@@ -1,4 +1,6 @@
 /*Fonts*/
+$defaultFont: 'Saira', sans-serif;
+
 $siteLogo: (
     font: ('Anton', sans-serif),
     size: 20px
@@ -8,3 +10,5 @@ $siteLogoLink: (
     color: $siteLogoColor,
     decoration: none
 );
+
+$header1: 'Unica One', cursive;

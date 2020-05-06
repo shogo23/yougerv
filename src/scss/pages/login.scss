@@ -1,0 +1,91 @@
+//Style for login page.
+//View path /Views/users/login.php
+
+.login_contents {
+    margin-top: 60px;
+
+    .contents {
+        width: 50%;
+        border: 1px solid map-get($forms, borderColor);
+        background-color: map-get($forms, bgColor);
+        padding: 10px;
+        margin: 0 auto;
+        margin-top: 80px;
+
+        h1 {
+            font-family: $header1;
+            border-bottom: 1px solid $headerBorderColor;
+        }
+
+        .err {
+            text-align: center;
+        }
+
+        .login {
+
+            .text_field {
+                border: 2px solid map-get($forms, borderColor);
+                background-color: map-get($forms, bgColor);
+                padding: 5px 8px;
+                font-size: 20px;
+
+                [type=text], [type=password] {
+                    border: 1px solid map-get($forms, bgColor);
+                    background-color: map-get($forms, bgColor);
+                    padding: 2px;
+                    width: 95%;
+                    outline: none;
+                }
+
+                @include screen-size(1070px) {
+                    [type=text], [type=password] {
+                        width: 90%;
+                    }
+                }
+            }
+
+            .text_field:nth-child(2) {
+                margin-bottom: 15px;
+            }
+
+            .btn_container {
+                margin-top: 10px;
+                text-align: center;
+                padding: 5px;
+            }
+        }
+    }
+
+    @include screen-size(850px) {
+        .contents {
+            width: 70%;
+            .login {
+                .text_field {
+                    width: 95%;
+                }
+            }
+        }
+    }
+
+    @include screen-size(580px) {
+        .contents {
+            width: 80%;
+
+            @include screen-size(400px) {
+                .login {
+                    .text_field {
+                        [type=text], [type=password] {
+                            width: 85%;
+                        }
+
+                        @include screen-size(270px) {
+                            [type=text], [type=password] {
+                                width: 83%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

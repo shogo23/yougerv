@@ -1,0 +1,43 @@
+//Style for register page.
+//View path /Views/users/register.php
+
+.register_contents {
+    margin-top: 60px;
+
+    .register_contents {
+        border: 2px solid map-get($forms, borderColor);
+        background-color: map-get($forms, bgColor);
+        width: 80%;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 0 auto;
+        margin-top: 80px;
+
+        label {
+            display: block;
+        }
+
+        h1 {
+            font-family: $header1;
+            border-bottom: 1px solid $headerBorderColor;
+        }
+
+        .fields {
+            div {
+                margin-bottom: 25px;
+
+                [type=text], [type=password] {
+                    width: 100%;
+                    border: 1px solid map-get($forms, borderColor);
+                    padding: 5px;
+                    outline: none;
+                }
+            }
+
+            .sub_container {
+                margin-top: 30px;
+                text-align: center;
+            }
+        }
+    }
+}

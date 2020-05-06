@@ -5,13 +5,30 @@
 @import 'assets/mixins';
 
 @import 'https://fonts.googleapis.com/css2?family=Anton&display=swap';
+@import 'https://fonts.googleapis.com/css2?family=Unica+One&display=swap';
+@import 'https://fonts.googleapis.com/css2?family=Saira:wght@200&display=swap';
+
+body {
+    color: $defaultColor;
+    font-family: $defaultFont;
+    background-color: $defaultBgColor;
+}
 
 .clear {
     clear: both;
 }
 
-/* Navigation menu Style */
+//Navigation menu Style.
 @import 'partials/nav';
 
-/* Import Pages Styles Files */
+//Import Pages Styles.
 @import 'pages/home';
+
+//Import Login Page.
+@import 'pages/login';
+
+//Import Register Style
+@import 'pages/register';
+
+//Import Setpicture Page.
+@import 'pages/setpicture';

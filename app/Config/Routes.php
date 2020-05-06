@@ -32,6 +32,15 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('/test', 'Home::test');
+$routes->get('/logout', 'Users::logout');
+$routes->get('/login', 'Users::login');
+$routes->post('/login', 'Users::loginP');
+$routes->get('/register', 'Users::register');
+$routes->post('/register', 'Users::reg');
+$routes->get('/setpicture', 'Users::setpicture');
+$routes->post('/imageUpload', 'Users::imageupload');
+$routes->post('/imageUpload/remove', 'Users::imageremove');
+$routes->get('/mychannel', 'Channels::mychannel');
 
 /**
  * --------------------------------------------------------------------

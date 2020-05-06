@@ -1,8 +1,46 @@
-/*Colors*/
+//Default Background Color.
+$defaultBgColor: rgb(243, 240, 240);
+
+//Default Font Color.
+$defaultColor: rgb(71, 70, 70);
+
+//Header Border Color.
+$headerBorderColor: #ccc;
+
+//Error Color.
+$error: rgb(240, 29, 29);
+
+//Main Navigation Color.
 $main_nav: (
     borderColor: rgb(148, 7, 7),
     bgColor: rgb(235, 47, 47),
     fontColor: #fff
 );
 
+//Logo Font Color.
 $siteLogoColor: #fff;
+
+//Search Text Color.
+$searhNav: (
+    colors: #fff,
+    fontColor: rgb(49, 49, 49)
+);
+
+//Form Container Colors
+$forms: (
+    borderColor: #ccc,
+    bgColor: #fff
+);
+
+//Default Container Colors.
+$defaultContainer: (
+    borderColor: #ccc,
+    bgColor: #fff
+);
+
+$progressBarColor: (
+    borderColor: rgb(148, 7, 7),
+    bgColor: rgb(245, 122, 122),
+    fontColor: #fff,
+    progressColor: rgb(235, 47, 47)
+);

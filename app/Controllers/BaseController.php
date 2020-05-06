@@ -15,9 +15,9 @@ namespace App\Controllers;
  */
 
 use CodeIgniter\Controller;
+use App\Assets\Assets;
 
-class BaseController extends Controller
-{
+class BaseController extends Controller {
 
 	/**
 	 * An array of helpers to be loaded automatically upon
@@ -27,6 +27,12 @@ class BaseController extends Controller
 	 * @var array
 	 */
 	protected $helpers = [];
+
+	protected $Assets;
+
+    public function __construct() {
+		$this->Assets = new Assets();
+    }
 
 	/**
 	 * Constructor.

@@ -1,9 +1,15 @@
+//Navigation menu style.
+//View path /Views/assets/anon_nav.php
 .main_nav {
     border-bottom: 1px solid map-get($main_nav, borderColor);
     background-color: map-get($main_nav, bgColor);
     color: map-get($main_nav, fontColor);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 20;
 
-    .links_content {
+    .nav_content {
         padding: 10px;
 
         .logo_container {
@@ -12,6 +18,8 @@
             text-align: center;
             font-family: map-get($siteLogo, font);
             font-size: map-get($siteLogo, size);
+            position: relative;
+            top: 3px;
 
             a {
                 color: map-get($siteLogoLink, color);
@@ -22,18 +30,28 @@
         .search_container {
             width: 70%;
             float: left;
+            position: relative;
+            top: 3px;
             
             .text_input {
-                border: 1px solid #fff;
+                border: 1px solid map-get($searhNav, colors);
                 width: 80%;
                 margin: 0 auto;
-                background-color: #fff;
+                background-color: map-get($searhNav, colors);
+                color: map-get($searhNav, fontColor);
                 
                 .search {
                     width: 95.5%;
                     border: none;
                     padding: 3px 5px;
                     outline: none;
+                    color: map-get($searhNav, fontColor);
+                }
+
+                @include screen-size(1040px) {
+                    .search {
+                        width: 93%;
+                    }
                 }
 
                 .search-btn {
@@ -52,6 +70,12 @@
         .links_container {
             width: 20%;
             float: left;
+            position: relative;
+            top: 3px;
+
+            .sm {
+                display: none;
+            }
 
             ul {
                 text-align: center;
@@ -66,6 +90,97 @@
                         color: map-get($main_nav, fontColor);
                         text-decoration: none;
                     }
+                }
+            }
+        }
+
+        @include screen-size(1050px) {
+            .search_container {
+                width: 60%;
+            }
+
+            .links_container {
+                width: 30%;
+            }
+        }
+
+        @include screen-size(710px) {
+            .logo_container {
+                width: 50%;
+                text-align: left;
+            }
+
+            .search_container {
+                display: none;
+            }
+
+            .links_container {
+                width: 50%;
+
+                .lg {
+                    display: none;
+                }
+
+                .sm {
+                    display: block;
+                    text-align: right;
+
+                    li {
+                        margin: 0 4%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+//Search Input Floating.
+.search_floating {
+    display: none;
+}
+
+@include screen-size(710px) {
+    .search_floating {
+        border-bottom: 1px solid map-get($main_nav, borderColor);
+        background-color: map-get($main_nav, bgColor);
+        color: map-get($main_nav, fontColor);
+        position: fixed;
+        top: 60px;
+        width: 100%;
+        padding: 5px 0;
+        z-index: 20;
+
+        .contents {
+            padding: 5px;
+
+            .text_input {
+                border: 1px solid map-get($searhNav, colors);
+                background-color: map-get($searhNav, colors);
+                padding: 5px;
+    
+                .search_m {
+                    border: 1px solid map-get($searhNav, colors);
+                    background-color: map-get($searhNav, colors);
+                    width: 95%;
+                    outline: none;
+                    color: map-get($searhNav, fontColor);
+                }
+
+                @include screen-size(430px) {
+                    .search_m {
+                        width: 93%;
+                    }
+                }
+
+                @include screen-size(315px) {
+                    .search_m {
+                        width: 90%;
+                    }
+                }
+    
+                .search-btn-toggle {
+                    color: map-get($main_nav, bgColor);
                 }
             }
         }
