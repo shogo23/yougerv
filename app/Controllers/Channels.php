@@ -2,7 +2,12 @@
 
 class Channels extends BaseController {
 
-    public function mychannel() {
-        echo 'mychannel.';
-    }
+	public function mychannel()
+	{
+		$data = [
+			'title' => 'My Channel - CI4'
+		];
+
+		return view('channels/mychannel', $data);
+	}
 }

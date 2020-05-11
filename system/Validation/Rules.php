@@ -215,8 +215,8 @@ class Rules
 	 * @return boolean
 	 */
 	public function is_unique(string $str = null, string $field, array $data): bool
-	{	
-		// Grab any data for exclusion of a single row.
+	{
+			// Grab any data for exclusion of a single row.
 		list($field, $ignoreField, $ignoreValue) = array_pad(explode(',', $field), 3, null);
 
 		// Break the table and field apart
@@ -233,7 +233,7 @@ class Rules
 		{
 			$row = $row->where("{$ignoreField} !=", $ignoreValue);
 		}
-		
+
 		return (bool) ($row->get()
 						->getRow() === null);
 	}

@@ -10,7 +10,7 @@
     z-index: 20;
 
     .nav_content {
-        padding: 10px;
+        padding: 5px 10px;
 
         .logo_container {
             width: 10%;
@@ -94,12 +94,54 @@
             }
         }
 
+        .links_container2 {
+            width: 20%;
+            float: left;
+            position: relative;
+            top: 5px;
+            text-align: right;
+
+            .sm {
+                display: none;
+            }
+
+            ul {
+                
+                li {
+                    display: inline-block;
+                    text-align: center;
+                    position: relative;
+                    margin: 0 5px;
+                    margin-top: -4px;
+                    top: 2px;
+                    text-align: center;
+    
+                    img {
+                        border-radius: 50%;
+                        height: 30px;
+                        width: 30px;
+                        padding: 0;
+                        border: 2px solid $thumbnailBorderColor;
+                        cursor: pointer;
+                    }
+                }
+
+                li:nth-child(2), li:last-child span#user_menu_toggler {
+                    cursor: pointer;
+                }
+
+                li:nth-child(2):hover, li:last-child span#user_menu_toggler:hover {
+                    color: $hoverColor;
+                }
+            }
+        }
+
         @include screen-size(1050px) {
             .search_container {
                 width: 60%;
             }
 
-            .links_container {
+            .links_container, .links_container2 {
                 width: 30%;
             }
         }
@@ -114,7 +156,7 @@
                 display: none;
             }
 
-            .links_container {
+            .links_container  {
                 width: 50%;
 
                 .lg {
@@ -130,6 +172,29 @@
                     }
                 }
             }
+
+            .links_container2 {
+                width: 50%;
+
+                .lg {
+                    display: none;
+                }
+
+                .sm {
+                    display: block;
+                    text-align: right;
+                }
+            }
+        }
+
+        @include screen-size(300px) {
+            .logo_container {
+                width: 35%;
+            }
+
+            .links_container, .links_container2 {
+                width: 65%;
+            }
         }
     }
 }
@@ -140,13 +205,67 @@
     display: none;
 }
 
+.user_menu {
+    display: none;
+    position: fixed;
+    top: 55px;
+    right: 0;
+    width: 300px;
+    color: $defaultBgColor;
+    border-left: 1px solid map-get($main_nav, borderColor);
+    border-right: 1px solid map-get($main_nav, borderColor);
+    border-bottom: 1px solid map-get($main_nav, borderColor);
+    background-color: map-get($main_nav, bgColor);
+
+    .contents {
+        padding: 5px;
+
+        .top {
+            border-bottom: 1px solid $dividerColor;
+
+            ul li {
+                display: inline-block;
+                font-size: 18px;
+                margin: 0 5px;
+            }
+
+            ul li:first-child img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                border: 2px solid $thumbnailBorderColor;
+            }
+        }
+
+        .bottom {
+            margin-top: 30px;
+
+            ul li {
+                display: block;
+                margin-bottom: 20px;
+
+                a {
+                    color: map-get($main_nav, fontColor);
+                    text-decoration: none;
+                    display: block;
+                    transition: color 1s;
+                }
+
+                a:hover {
+                    color: $hoverColor;
+                }
+            }
+        }
+    }
+}
+
 @include screen-size(710px) {
     .search_floating {
         border-bottom: 1px solid map-get($main_nav, borderColor);
         background-color: map-get($main_nav, bgColor);
         color: map-get($main_nav, fontColor);
         position: fixed;
-        top: 60px;
+        top: 51px;
         width: 100%;
         padding: 5px 0;
         z-index: 20;
@@ -182,6 +301,23 @@
                 .search-btn-toggle {
                     color: map-get($main_nav, bgColor);
                 }
+            }
+        }
+    }
+
+    .search_floating2 {
+        top: 55px;
+    }
+}
+
+@include screen-size(400px) {
+    .user_menu {
+        width: 100%;
+
+        @include screen-size(270px) {
+            .top ul {
+                padding-left: 0;
+                margin-left: 10px;
             }
         }
     }

@@ -30,9 +30,10 @@ class BaseController extends Controller {
 
 	protected $Assets;
 
-    public function __construct() {
+	public function __construct()
+	{
 		$this->Assets = new Assets();
-    }
+	}
 
 	/**
 	 * Constructor.

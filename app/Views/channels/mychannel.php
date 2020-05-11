@@ -7,7 +7,7 @@
 <?= $this->section('content') ?>
 
 <div class="home_contents">
-	Hello Home Page
+	My Channel.
 </div>
 
 <?= $this->endSection() ?>

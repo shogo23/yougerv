@@ -10,9 +10,16 @@ $headerBorderColor: #ccc;
 //Error Color.
 $error: rgb(240, 29, 29);
 
+//Hover color.
+$hoverColor: yellow;
+
+$thumbnailBorderColor: #fff;
+
+$dividerColor: rgb(221, 219, 219);
+
 //Main Navigation Color.
 $main_nav: (
-    borderColor: rgb(148, 7, 7),
+    borderColor: rgb(112, 45, 45),
     bgColor: rgb(235, 47, 47),
     fontColor: #fff
 );

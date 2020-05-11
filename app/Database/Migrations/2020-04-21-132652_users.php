@@ -7,50 +7,50 @@ class Users extends Migration
 	public function up()
 	{
 		$this->forge->addfield([
-			'id'        => [
+			'id'         => [
 				'type'           => 'INT',
 				'constraint'     => 255,
 				'unassign'       => true,
 				'auto_increment' => true,
 			],
 
-			'username'  => [
+			'username'   => [
 				'type'       => 'VARCHAR',
 				'constraint' => 255,
 			],
 
-			'password'  => [
+			'password'   => [
 				'type'       => 'VARCHAR',
 				'constraint' => 255,
 			],
 
-			'firstname' => [
+			'firstname'  => [
 				'type'       => 'VARCHAR',
 				'constraint' => 255,
 			],
 
-			'lastname'  => [
+			'lastname'   => [
 				'type'       => 'VARCHAR',
 				'constraint' => 255,
 			],
 
-			'nickname' => [
-				'type' => 'VARCHAR',
-				'constraint' => 255
-			],
-
-			'picture' => [
+			'nickname'   => [
 				'type'       => 'VARCHAR',
 				'constraint' => 255,
-				'null' => TRUE
 			],
 
-			'created_at'   => [
+			'picture'    => [
+				'type'       => 'VARCHAR',
+				'constraint' => 255,
+				'null'       => true,
+			],
+
+			'created_at' => [
 				'type' => 'datetime',
 			],
 
 			'last_login' => [
-				'type' => 'datetime'
+				'type' => 'datetime',
 			],
 
 			'updated_at' => [
