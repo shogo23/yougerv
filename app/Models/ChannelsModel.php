@@ -4,7 +4,7 @@ use CodeIgniter\Model;
 
 class ChannelsModel extends Model
 {
-    protected $table         = 'videos';
+	protected $table         = 'videos';
 	protected $primaryKey    = 'id';
 	protected $useTimestamps = true;
 	protected $allowedFields = [
@@ -22,11 +22,10 @@ class ChannelsModel extends Model
 		'converted',
 	];
 
-	public function is_record_exists($slug) 
+	public function is_record_exists($slug)
 	{
 		$videos = $this->where('slug', $slug)
 						->findAll();
-
 
 		$count = 0;
 
@@ -35,7 +34,7 @@ class ChannelsModel extends Model
 			$count++;
 		}
 
-		if ($count > 0) 
+		if ($count > 0)
 		{
 			return true;
 		}
@@ -43,7 +42,7 @@ class ChannelsModel extends Model
 		return false;
 	}
 
-	public function create_record($data) 
+	public function create_record($data)
 	{
 		$this->save($data);
 	}
@@ -54,7 +53,7 @@ class ChannelsModel extends Model
 				->where('slug', $data['slug'])
 				->set([
 					'orig_filename' => $data['orig_filename'],
-					'filename' => $data['filename']
+					'filename'      => $data['filename'],
 				])
 				->update();
 	}
@@ -64,14 +63,14 @@ class ChannelsModel extends Model
 		$this->where('user_id', $data['user_id'])
 				->where('slug', $data['slug'])
 				->set([
-					'title' => $data['title'],
+					'title'       => $data['title'],
 					'description' => $data['description'],
-					'tags' => $data['tags']
+					'tags'        => $data['tags'],
 				])
 				->update();
 	}
 
-	public function get_new_filename($slug) 
+	public function get_new_filename($slug)
 	{
 		$videos = $this->select('filename')
 				->where('slug', $slug)
@@ -79,11 +78,11 @@ class ChannelsModel extends Model
 
 		$filename = '';
 
-		foreach ($videos as $video) 
+		foreach ($videos as $video)
 		{
 			$filename = $video['filename'];
 		}
-		
+
 		return $filename;
 	}
 
@@ -118,44 +117,45 @@ class ChannelsModel extends Model
 	public function get_video($slug)
 	{
 		$videos = $this->select([
-		'users.firstname',
-		'users.lastname',
-		'videos.id',
-		'videos.user_id',
-		'videos.title', 
-		'videos.description', 
-		'videos.tags', 
-		'videos.filename', 
-		'videos.likes', 
-		'videos.views', 
-		'videos.created_at'])
+			'users.firstname',
+			'users.lastname',
+			'videos.id',
+			'videos.user_id',
+			'videos.title',
+			'videos.description',
+			'videos.tags',
+			'videos.filename',
+			'videos.likes',
+			'videos.views',
+			'videos.created_at',
+		])
 			->join('users', 'users.id = videos.user_id', 'left')
 			->where('slug', $slug)
 			->where('converted', 1)
 			->find();
-		
-		$data = [];
+
+		$data         = [];
 		$data['slug'] = $slug;
 
 		foreach ($videos as $video)
 		{
-			$data['firstname'] = $video['firstname'];
-			$data['lastname'] = $video['lastname'];
-			$data['video_id'] = $video['id'];
-			$data['user_id'] = $video['user_id'];
-			$data['title'] = $video['title'];
+			$data['firstname']   = $video['firstname'];
+			$data['lastname']    = $video['lastname'];
+			$data['video_id']    = $video['id'];
+			$data['user_id']     = $video['user_id'];
+			$data['title']       = $video['title'];
 			$data['description'] = $video['description'];
-			$data['tags'] = $video['tags'];
-			$data['filename'] = $video['filename'];
-			$data['likes'] = $video['likes'];
-			$data['views'] = $video['views'];
-			$data['created_at'] = $video['created_at'];
+			$data['tags']        = $video['tags'];
+			$data['filename']    = $video['filename'];
+			$data['likes']       = $video['likes'];
+			$data['views']       = $video['views'];
+			$data['created_at']  = $video['created_at'];
 		}
 
 		return $data;
 	}
 
-	public function get_latest_videos($slug) 
+	public function get_latest_videos($slug)
 	{
 		return $this->select([
 			'users.firstname',
@@ -163,7 +163,7 @@ class ChannelsModel extends Model
 			'videos.slug',
 			'videos.title',
 			'videos.length',
-			'videos.created_at'
+			'videos.created_at',
 		])
 			->join('users', 'users.id = videos.user_id', 'left')
 			->where('slug !=', $slug)

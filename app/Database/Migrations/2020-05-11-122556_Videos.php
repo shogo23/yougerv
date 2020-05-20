@@ -7,79 +7,79 @@ class Videos extends Migration
 	public function up()
 	{
 		$this->forge->addfield([
-			'id' => [
-				'type' => 'INT',
+			'id'            => [
+				'type'           => 'INT',
+				'constraint'     => 255,
+				'unassign'       => true,
+				'auto_increment' => true,
+			],
+
+			'user_id'       => [
+				'type'       => 'INT',
 				'constraint' => 255,
-				'unassign' => TRUE,
-				'auto_increment' => TRUE,
 			],
 
-			'user_id' => [
-				'type' => 'INT',
+			'slug'          => [
+				'type'       => 'VARCHAR',
 				'constraint' => 255,
 			],
 
-			'slug' => [
-				'type' => 'VARCHAR',
-				'constraint' => 255
-			],
-
-			'title' => [
-				'type' => 'VARCHAR',
+			'title'         => [
+				'type'       => 'VARCHAR',
 				'constraint' => 255,
-				'null' => true,
+				'null'       => true,
 			],
 
-			'description' => [
+			'description'   => [
 				'type' => 'LONGTEXT',
 				'null' => true,
 			],
 
-			'tags' => [
+			'tags'          => [
 				'type' => 'LONGTEXT',
 				'null' => true,
 			],
 
 			'orig_filename' => [
-				'type' => 'VARCHAR',
+				'type'       => 'VARCHAR',
 				'constraint' => 255,
-				'null' => true,
+				'null'       => true,
 			],
 
-			'filename' => [
-				'type' => 'VARCHAR',
+			'filename'      => [
+				'type'       => 'VARCHAR',
 				'constraint' => 255,
-				'null' => true,
+				'null'       => true,
 			],
 
-			'length' => [
-				'type' => 'VARCHAR',
+			'length'        => [
+				'type'       => 'VARCHAR',
 				'constraint' => 255,
 			],
 
-			'likes' => [
-				'type' => 'INT',
+			'likes'         => [
+				'type'       => 'INT',
 				'constraint' => 255,
-				'null' => true,
+				'null'       => true,
 			],
 
-			'views' => [
-				'type' => 'INT',
+			'views'         => [
+				'type'       => 'INT',
 				'constraint' => 255,
-				'null' => true,
+				'null'       => true,
 			],
 
-			'converted' => [
-				'type' => 'INT',
+			'converted'     => [
+				'type'       => 'INT',
 				'constraint' => 1,
-				'null' => true
+				'null'       => true,
 			],
 
-			'created_at' => [
+			'created_at'    => [
 				'type' => 'datetime',
 			],
 
-			'updated_at' => [
+			'updated_at'    => [
 				'type' => 'datetime',
 			],
 		]);

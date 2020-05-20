@@ -7,29 +7,29 @@ class Comments extends Migration
 	public function up()
 	{
 		$this->forge->addField([
-			'id' => [
-				'type' => 'INT',
-				'constraint' => 255,
-				'unassign' => TRUE,
-				'auto_increment' => TRUE,
+			'id'         => [
+				'type'           => 'INT',
+				'constraint'     => 255,
+				'unassign'       => true,
+				'auto_increment' => true,
 			],
 
-			'user_id' => [
-				'type' => 'INT',
+			'user_id'    => [
+				'type'       => 'INT',
 				'constraint' => 255,
 			],
 
-			'video_id' => [
-				'type' => 'INT',
+			'video_id'   => [
+				'type'       => 'INT',
 				'constraint' => 255,
 			],
 
 			'video_slug' => [
-				'type' => 'VARCHAR',
+				'type'       => 'VARCHAR',
 				'constraint' => 255,
 			],
 
-			'comment' => [
+			'comment'    => [
 				'type' => 'TEXT',
 			],
 
@@ -41,7 +41,7 @@ class Comments extends Migration
 				'type' => 'datetime',
 			],
 		]);
-	
+
 		$this->forge->addKey('id', true);
 		$this->forge->createTable('comments');
 	}

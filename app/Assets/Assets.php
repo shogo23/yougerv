@@ -58,9 +58,9 @@ class Assets extends AssetsBase
 		return $this->_datetime();
 	}
 
-	public function get_fullname($user_id = NULL)
+	public function get_fullname($user_id = null)
 	{
-		if ($user_id === NULL) 
+		if ($user_id === null)
 		{
 			$builder = $this->db->table('users');
 			$builder->select(['firstname', 'lastname']);
@@ -74,7 +74,7 @@ class Assets extends AssetsBase
 			$builder->where('id', $user_id);
 			$query = $builder->get();
 		}
-		
+
 		$fullname = '';
 
 		foreach ($query->getResult() as $user)
@@ -188,21 +188,21 @@ class Assets extends AssetsBase
 		return false;
 	}
 
-	public function get_thumbnail($user_id = NULL)
+	public function get_thumbnail($user_id = null)
 	{
-		if ($user_id === NULL)
+		if ($user_id === null)
 		{
 			$builder = $this->db->table('users');
 			$builder->select('picture');
 			$builder->where('username', $this->getSession('username'));
-			$query   = $builder->get();
+			$query = $builder->get();
 		}
-		else 
+		else
 		{
 			$builder = $this->db->table('users');
 			$builder->select('picture');
 			$builder->where('id', $user_id);
-			$query   = $builder->get();
+			$query = $builder->get();
 		}
 
 		$picture = '';
@@ -250,7 +250,7 @@ class Assets extends AssetsBase
 	public function get_file_ext($filename)
 	{
 		$exts = explode('.', $filename);
-		$ext = end($exts);
+		$ext  = end($exts);
 
 		return $ext;
 	}
@@ -258,8 +258,33 @@ class Assets extends AssetsBase
 	public function is_valid_video($ext)
 	{
 		$exts = [
-			'mp4', 'm4a', 'm4v', 'f4v', 'f4a', 'm4b', 'm4r', 'f4b', 'mov', '3gp', '3gp2', '3gpp', '3gpp2', 
-            'ogg',  'oga', 'ogv', 'ogx', 'wmv', 'wma', 'asf', 'webm', 'flv', 'avi', 'rm', 'mpg', 'mpeg', 'vob'
+			'mp4',
+			'm4a',
+			'm4v',
+			'f4v',
+			'f4a',
+			'm4b',
+			'm4r',
+			'f4b',
+			'mov',
+			'3gp',
+			'3gp2',
+			'3gpp',
+			'3gpp2',
+			'ogg',
+			'oga',
+			'ogv',
+			'ogx',
+			'wmv',
+			'wma',
+			'asf',
+			'webm',
+			'flv',
+			'avi',
+			'rm',
+			'mpg',
+			'mpeg',
+			'vob',
 		];
 
 		if (in_array($ext, $exts))
@@ -271,25 +296,25 @@ class Assets extends AssetsBase
 	}
 
 	public function video_duration($seconds_count)
-    {
-        $delimiter  = ':';
-        $seconds = $seconds_count % 60;
-        $minutes = floor($seconds_count/60);
-        $hours   = floor($seconds_count/3600);
+	{
+		$delimiter = ':';
+		$seconds   = $seconds_count % 60;
+		$minutes   = floor($seconds_count / 60);
+		$hours     = floor($seconds_count / 3600);
 
-        $seconds = str_pad($seconds, 2, "0", STR_PAD_LEFT);
-        $minutes = str_pad($minutes, 2, "0", STR_PAD_LEFT).$delimiter;
+		$seconds = str_pad($seconds, 2, '0', STR_PAD_LEFT);
+		$minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT) . $delimiter;
 
-        if ($hours > 0)
-        {
-            $hours = str_pad($hours, 2, "0", STR_PAD_LEFT).$delimiter;
-        }
-        else
-        {
-            $hours = '';
-        }
+		if ($hours > 0)
+		{
+			$hours = str_pad($hours, 2, '0', STR_PAD_LEFT) . $delimiter;
+		}
+		else
+		{
+			$hours = '';
+		}
 
-        return $hours . $minutes . $seconds;
+		return $hours . $minutes . $seconds;
 	}
 
 	public function reduce_title($title)
@@ -301,10 +326,10 @@ class Assets extends AssetsBase
 
 		return $title;
 	}
-	
-	public function get_last_uri() 
+
+	public function get_last_uri()
 	{
-		$uri = explode('/', uri_string());
+		$uri   = explode('/', uri_string());
 		$count = count($uri);
 
 		return $uri[$count - 1];
@@ -313,61 +338,61 @@ class Assets extends AssetsBase
 	public function when($datetime)
 	{
 		$second = 1;
-        $minute = 60 * $second;
-        $hour = 60 * $minute;
-        $day = 24 * $hour;
-        
-        $current = time() - strtotime($datetime);
-        
-		if ($current < 1 * $minute) 
+		$minute = 60 * $second;
+		$hour   = 60 * $minute;
+		$day    = 24 * $hour;
+
+		$current = time() - strtotime($datetime);
+
+		if ($current < 1 * $minute)
 		{
-            return 'About few seconds ago.';
-        }
-        
-		if ($current < 1 * $minute) 
+			return 'About few seconds ago.';
+		}
+
+		if ($current < 1 * $minute)
 		{
-            return 'About a minute ago';
-        }
-        
-		if ($current < 60 * $minute) 
+			return 'About a minute ago';
+		}
+
+		if ($current < 60 * $minute)
 		{
-            return floor($current / $minute) . ' minutes ago.';
-        }
-        
-		if ($current < 119 * $minute) 
+			return floor($current / $minute) . ' minutes ago.';
+		}
+
+		if ($current < 119 * $minute)
 		{
-            return 'About an hour ago';
-        }
-        
-		if ($current < 24 * $hour) 
+			return 'About an hour ago';
+		}
+
+		if ($current < 24 * $hour)
 		{
-            return floor($current / $hour) . ' hours ago.';
-        }
-        
-		if ($current < 60 * $hour) 
+			return floor($current / $hour) . ' hours ago.';
+		}
+
+		if ($current < 60 * $hour)
 		{
-            return 'About a day ago.';
-        }
-        
-		if ($current < 30 * $day) 
+			return 'About a day ago.';
+		}
+
+		if ($current < 30 * $day)
 		{
-            return floor($current / $day) . ' days ago.';
-		} 
+			return floor($current / $day) . ' days ago.';
+		}
 		else
 		{
-            return 'Posted on: ' . date('M j, Y h:i:a', strtotime($datetime));
-        }
+			return 'Posted on: ' . date('M j, Y h:i:a', strtotime($datetime));
+		}
 	}
 
 	public function filter_tags($str)
-	{	
-		//Strip html tags except <br> and <a>
-		$str = 
+	{
+			//Strip html tags except <br> and <a>
+		$str =
 		$str = strip_tags(nl2br($str), '<br> <br /> <a>');
 
 		//Convert http://<strings> in clickable hyperlink.
 		$pattern = '@(http(s)?://)?(([a-zA-Z0-9])([-\w]+\.)+([^\s\.]+[^\s]*)+[^,.\s])@';
-   		$str = preg_replace($pattern, '<a target="_blank" href="http$2://$3">$0</a>', $str);
+		$str     = preg_replace($pattern, '<a target="_blank" href="http$2://$3">$0</a>', $str);
 
 		return $str;
 	}

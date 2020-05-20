@@ -5,7 +5,7 @@
 	$assets = new Assets();
 ?>
 
-<?php if (!$assets->hasSession()) :?>
+<?php if (! $assets->hasSession()) :?>
 <nav class="main_nav">
 	<div class="nav_content">
 		<div class="logo_container">
