@@ -23,6 +23,7 @@
     "mini-css-extract-plugin": "^0.9.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "path": "^0.12.7",
+    "plyr": "^3.6.2",
     "popper.js": "^1.16.1",
     "sass": "^1.26.3",
     "sass-loader": "^8.0.2",
@@ -32,5 +33,7 @@
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
   },
-  "dependencies": {}
+  "dependencies": {
+    "fs": "0.0.1-security"
+  }
 }

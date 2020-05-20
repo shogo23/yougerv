@@ -3,7 +3,8 @@
 use CodeIgniter\Model;
 use App\Entities\User;
 
-class UsersModel extends Model {
+class UsersModel extends Model 
+{
 	protected $table         = 'users';
 	protected $primaryKey    = 'id';
 	protected $useTimestamps = true;

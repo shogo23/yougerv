@@ -28,6 +28,7 @@
                 background-color: map-get($forms, bgColor);
                 padding: 5px 8px;
                 font-size: 20px;
+                width: 100%;
 
                 [type=text], [type=password] {
                     border: 1px solid map-get($forms, bgColor);
@@ -61,7 +62,7 @@
             width: 70%;
             .login {
                 .text_field {
-                    width: 95%;
+                    width: 100%;
                 }
             }
         }

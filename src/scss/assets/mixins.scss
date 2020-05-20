@@ -11,18 +11,20 @@
     .progress_container {
         border: 1px solid map-get($progressBarColor, borderColor);
         background-color: map-get($progressBarColor, bgColor);
-        visibility: hidden;
+        padding: 3px 0px;
 
         .progress_bar {
             background-color: map-get($progressBarColor, progressColor);
-            padding: 5px;
+            padding: 5px 0px;
             width: 0%;
+            position: relative;
+            top: -3px;
         }
 
         .percent {
-            position: absolute;
-            margin-top: -28px;
-            margin-left: 43%;
+            position: relative;
+            width: 100%;
+            margin-top: -30px;
             color: map-get($progressBarColor, fontColor);
         }
     }

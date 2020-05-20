@@ -1,6 +1,7 @@
 <?php
 	//Scss path for this view file /src/sess/partials/nav.scss
 	use App\Assets\Assets;
+
 	$assets = new Assets();
 ?>
 
@@ -20,11 +21,13 @@
 		</div>
 		<div class="links_container">
 			<ul class="lg">
+				<li><a href="/upload"><i class="fas fa-upload"></i> Upload</a></li>
 				<li><a href="/login"><i class="fas fa-user"></i> Login</a></li>
 				<li><a href="/register"><i class="fas fa-user-plus"></i> Register</a></li>
 			</ul>
 			<ul class="sm">
 				<li><i class="fas fa-search search-btn-toggler"></i></li>
+				<li><a href="/upload"><i class="fas fa-upload"></i></a></li>
 				<li><a href="/login"><i class="fas fa-user"></i></a></li>
 				<li><a href="/register"><i class="fas fa-user-plus"></i></a></li>
 			</ul>
@@ -84,12 +87,14 @@
 		</div>
 		<div class="links_container2">
 			<ul class="lg">
+				<li><a href="/upload"><i class="fas fa-upload"></i> Upload</a></li>
 				<li><img id="thumbnail_toggler" src="<?= $assets->get_thumbnail() ?>" /></li>
 				<li><span id="nickname_toggler"><?= $assets->get_nickname(); ?></span></li>
 				<li><span id="user_menu_toggler">▼</span></li>
 			</ul>
 			<ul class="sm">
 				<li><i class="fas fa-search search-btn-toggler"></i></li>
+				<li><a href="/upload"><i class="fas fa-upload"></i></a></li>
 				<li><img id="thumbnail_toggler2" src="<?= $assets->get_thumbnail() ?>" /></li>
 				<li><span id="user_menu_toggler2">▼</span></li>
 			</ul>

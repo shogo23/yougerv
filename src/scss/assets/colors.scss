@@ -10,12 +10,20 @@ $headerBorderColor: #ccc;
 //Error Color.
 $error: rgb(240, 29, 29);
 
+//Success Color.
+$success: rgb(8, 175, 8);
+
 //Hover color.
 $hoverColor: yellow;
 
 $thumbnailBorderColor: #fff;
 
 $dividerColor: rgb(221, 219, 219);
+
+$video_length_color: (
+    fontColor: #fff,
+    bgColor: #000
+);
 
 //Main Navigation Color.
 $main_nav: (

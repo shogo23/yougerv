@@ -41,6 +41,15 @@ $routes->get('/setpicture', 'Users::setpicture');
 $routes->post('/imageUpload', 'Users::imageupload');
 $routes->post('/imageUpload/remove', 'Users::imageremove');
 $routes->get('/mychannel', 'Channels::mychannel');
+$routes->get('/upload', 'Channels::upload');
+$routes->post('/upload', 'Channels::doupload');
+$routes->post('/upload/convert', 'Channels::doconvert');
+$routes->post('/upload/details', 'Channels::savevideodetails');
+$routes->add('/watch/(:segment)', 'Channels::watch');
+$routes->post('/comments', 'Channels::comments');
+$routes->post('/comments/postcomment', 'Channels::postcomment');
+$routes->post('/comments/delete', 'Channels::deletecomment');
+$routes->post('/like', 'Channels::like');
 
 /**
  * --------------------------------------------------------------------

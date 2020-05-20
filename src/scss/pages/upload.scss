@@ -1,0 +1,98 @@
+//Style for upload page.
+//View path /Views/channels/upload.php
+
+.upload_contents {
+    margin-top: 60px;
+
+    .contents {
+        width: 60%;
+        margin: 0 auto;
+        margin-top: 80px;
+
+
+        .video_source {
+            border: 1px solid map-get($defaultContainer, borderColor);
+            background-color: map-get($defaultContainer, bgColor);
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 50px;
+
+            h1 {
+                border-bottom: 1px solid $headerBorderColor;
+                text-align: left;
+            }
+
+            [type=file] {
+                position: absolute;
+                visibility: hidden;
+                width: 0;
+            }
+
+            .err {
+                color: $error;
+            }
+
+            .upload_progress, .convert_progress {
+                display: none;
+                width: 60%;
+                margin: 20px auto;
+
+                @include progressBar;
+            }
+        }
+
+        .video_details {
+            border: 1px solid map-get($defaultContainer, borderColor);
+            background-color: map-get($defaultContainer, bgColor);
+            padding: 10px;
+            margin-bottom: 50px;
+
+            h1 {
+                border-bottom: 1px solid $headerBorderColor;
+            }
+
+            .fields {
+                margin-top: 40px;
+
+                .field {
+                    margin-bottom: 20px;
+
+                    label {
+                        display: block;
+                    }
+    
+                    [type=text], textarea {
+                        width: 100%;
+                        padding: 5px;
+                        outline: none;
+                    }
+
+                    textarea {
+                        height: 200px;
+                    }
+                }
+
+                .btn_container {
+                    text-align: center;
+
+                    .save_notification {
+                        color: $success;
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    @include screen-size(1000px) {
+        .contents {
+            width: 80%;
+        }
+    }
+
+    @include screen-size(600px) {
+        .contents {
+            width: 90%;
+        }
+    }
+}

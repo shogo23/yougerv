@@ -7,7 +7,6 @@
     .contents {
         width: 60%;
         margin: 0 auto;
-        border: 1px solid red;
         margin-top: 80px;
         border: 1px solid map-get($defaultContainer, borderColor);
         background-color: map-get($defaultContainer, bgColor);
@@ -54,6 +53,10 @@
 
             .err {
                 color: $error;
+            }
+
+            .progress_container {
+                visibility: hidden;
             }
 
             @include progressBar;

@@ -28,14 +28,14 @@
         }
 
         .search_container {
-            width: 70%;
+            width: 60%;
             float: left;
             position: relative;
             top: 3px;
             
             .text_input {
                 border: 1px solid map-get($searhNav, colors);
-                width: 80%;
+                width: 90%;
                 margin: 0 auto;
                 background-color: map-get($searhNav, colors);
                 color: map-get($searhNav, fontColor);
@@ -68,7 +68,7 @@
         }
 
         .links_container {
-            width: 20%;
+            width: 30%;
             float: left;
             position: relative;
             top: 3px;
@@ -95,7 +95,7 @@
         }
 
         .links_container2 {
-            width: 20%;
+            width: 30%;
             float: left;
             position: relative;
             top: 5px;
@@ -124,6 +124,15 @@
                         border: 2px solid $thumbnailBorderColor;
                         cursor: pointer;
                     }
+
+                    a {
+                        color: map-get($main_nav, fontColor);
+                        text-decoration: none;
+                    }
+                }
+
+                li:first-child a:hover {
+                    color: $hoverColor;
                 }
 
                 li:nth-child(2), li:last-child span#user_menu_toggler {
@@ -136,19 +145,23 @@
             }
         }
 
-        @include screen-size(1050px) {
+        @include screen-size(1065px) {
             .search_container {
-                width: 60%;
+                width: 50%;
+
+                .text_input {
+                    width: 100%;
+                }
             }
 
             .links_container, .links_container2 {
-                width: 30%;
+                width: 40%;
             }
         }
 
-        @include screen-size(710px) {
+        @include screen-size(803px) {
             .logo_container {
-                width: 50%;
+                width: 20%;
                 text-align: left;
             }
 
@@ -157,7 +170,7 @@
             }
 
             .links_container  {
-                width: 50%;
+                width: 80%;
 
                 .lg {
                     display: none;
@@ -174,7 +187,7 @@
             }
 
             .links_container2 {
-                width: 50%;
+                width: 80%;
 
                 .lg {
                     display: none;
@@ -183,17 +196,27 @@
                 .sm {
                     display: block;
                     text-align: right;
+
+                    li {
+                        margin: 0 10px;
+                    }
                 }
             }
         }
 
         @include screen-size(300px) {
             .logo_container {
-                width: 35%;
+                width: 25%;
             }
 
             .links_container, .links_container2 {
-                width: 65%;
+                width: 75%;
+
+                .sm {
+                    li {
+                        margin: 0 5px;
+                    }
+                }
             }
         }
     }
@@ -210,6 +233,7 @@
     position: fixed;
     top: 55px;
     right: 0;
+    z-index: 10;
     width: 300px;
     color: $defaultBgColor;
     border-left: 1px solid map-get($main_nav, borderColor);
@@ -259,7 +283,7 @@
     }
 }
 
-@include screen-size(710px) {
+@include screen-size(803px) {
     .search_floating {
         border-bottom: 1px solid map-get($main_nav, borderColor);
         background-color: map-get($main_nav, bgColor);

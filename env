@@ -36,6 +36,12 @@
 # app.cookieSecure = false
 # app.cookieHTTPOnly = false
 
+# FFMPEG CONFIGURATION.
+ffmpeg.binaries     = C:\ffmpeg-20200420-cacdac8-win64-static\bin\ffmpeg.exe
+ffprobe.binaries    = C:\ffmpeg-20200420-cacdac8-win64-static\bin\ffprobe.exe
+ffmpeg.timeout      = 2103600
+ffmpeg.threads      = 100
+
 # app.CSRFProtection  = false
 # app.CSRFTokenName   = 'csrf_test_name'
 # app.CSRFCookieName  = 'csrf_cookie_name'

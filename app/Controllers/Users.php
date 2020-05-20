@@ -2,7 +2,7 @@
 
 use App\Models\UsersModel;
 
-class Users extends BaseController 
+class Users extends BaseController
 {
 
 	public function login()
@@ -83,7 +83,12 @@ class Users extends BaseController
 			//Set Session.
 			$this->Assets->setSession($data);
 
-			//Redirect to MyChannel.
+			//Redirect.
+			if ($this->request->getPostGet('redirect'))
+			{
+				return redirect()->to('/' . $this->request->getPostGet('redirect'));
+			}
+
 			return redirect()->to('/mychannel');
 		}
 	}
