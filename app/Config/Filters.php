@@ -19,7 +19,7 @@ class Filters extends BaseConfig
 			'csrf' => [
 				'except' => [
 					'notifications/check'
-				]
+				],
 			],
 		],
 		'after'  => [

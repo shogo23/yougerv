@@ -1,12 +1,12 @@
 <?php
 	//Scss path for this view file /src/sess/pages/home.scss
-	
+
 	use App\Assets\Assets;
 	use App\Models\ChannelsModel;
 
-	$assets = new Assets();
+	$assets   = new Assets();
 	$channels = new ChannelsModel();
-	$request = \Config\Services::request();
+	$request  = \Config\Services::request();
 ?>
 
 <?= $this->extend('template') ?>
@@ -15,7 +15,7 @@
 
 <div class="home_contents">
 	<div class="contents">
-		<?php if ($assets->hasSession() && ! $request->getGet('page_video') || $request->getGet('page_video') == 1) : ?>
+		<?php if ($assets->hasSession() && ! $request->getGet('page_video') || $request->getGet('page_video') === 1) : ?>
 			<div class="subscription_videos">
 				<?php foreach ($subscriptions as $subscription) : ?>
 					<h1><?= $subscription['firstname'] . ' ' . $subscription['lastname'] ?>'s Latest Videos</h1>

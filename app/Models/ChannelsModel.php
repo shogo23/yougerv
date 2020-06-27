@@ -226,19 +226,17 @@ class ChannelsModel extends Model
 
 	public function pagination_visibility($keywords = null)
 	{
-		
-		if (!$keywords)
+		if (! $keywords)
 		{
 			$videos_count = $this->where('converted', 1)
 						  ->countAllResults();
-						  
+
 			if ($this->per_page >= $videos_count)
 			{
 				return false;
 			}
-
-		} 
-		else 
+		}
+		else
 		{
 			$keywords = explode(' ', $keywords);
 
@@ -250,7 +248,7 @@ class ChannelsModel extends Model
 			{
 				$i++;
 
-				if ($i == 1)
+				if ($i === 1)
 				{
 					$videos->like('videos.title', $keyword);
 					$videos->orLike('videos.tags', $keyword);
@@ -280,7 +278,7 @@ class ChannelsModel extends Model
 			'videos.slug',
 			'videos.title',
 			'videos.length',
-			'videos.created_at'
+			'videos.created_at',
 		])
 		->join('users', 'users.id = videos.user_id', 'left')
 		->where('videos.converted', 1)
@@ -354,20 +352,19 @@ class ChannelsModel extends Model
 		return $this->select('title')
 					 ->where('slug', $slug)
 					 ->find();
-
 	}
 
 	public function get_subscribed_videos($user_id)
 	{
 		return $this->select([
-				'users.id AS user_id',
-				'users.firstname',
-				'users.lastname',
-				'videos.slug',
-				'videos.title',
-				'videos.length',
-				'videos.created_at'
-			])
+			'users.id AS user_id',
+			'users.firstname',
+			'users.lastname',
+			'videos.slug',
+			'videos.title',
+			'videos.length',
+			'videos.created_at',
+		])
 			->join('users', 'users.id = videos.user_id')
 			->where('videos.user_id', $user_id)
 			->where('videos.converted', 1)
@@ -381,16 +378,16 @@ class ChannelsModel extends Model
 		$keywords = explode(' ', $keywords);
 
 		$videos = $this->select([
-					'users.firstname',
-					'users.lastname',
-					'videos.user_id',
-					'videos.title',
-					'videos.slug',
-					'videos.tags',
-					'videos.length',
-					'videos.created_at',
-				]);
-		
+			'users.firstname',
+			'users.lastname',
+			'videos.user_id',
+			'videos.title',
+			'videos.slug',
+			'videos.tags',
+			'videos.length',
+			'videos.created_at',
+		]);
+
 		$videos->join('users', 'users.id = videos.user_id', 'LEFT');
 		$i = 0;
 
@@ -400,7 +397,7 @@ class ChannelsModel extends Model
 		{
 			$i++;
 
-			if ($i == 1)
+			if ($i === 1)
 			{
 				$videos->like('videos.title', $keyword);
 				$videos->orLike('videos.tags', $keyword);

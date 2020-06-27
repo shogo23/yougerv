@@ -83,8 +83,8 @@ $pager->setSurroundCount(2);
 </div>
 
 <script>
-    $("#paginate").on("change", () => {
-        location =  $("#paginate").val();
-    });
+	$("#paginate").on("change", () => {
+		location =  $("#paginate").val();
+	});
 </script>
 

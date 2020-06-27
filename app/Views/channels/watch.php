@@ -211,11 +211,11 @@
 	});
 
 	elm.addEventListener("click", function(e) {
-        if (e.srcElement.localName == "a") {
-            e.preventDefault();
-            location = "/out?redirect=" + e.target.href;
-        }
-    });
+		if (e.srcElement.localName == "a") {
+			e.preventDefault();
+			location = "/out?redirect=" + e.target.href;
+		}
+	});
 
 	function _cancel() {
 		$("#comment").val("");

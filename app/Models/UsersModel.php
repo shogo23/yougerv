@@ -56,26 +56,26 @@ class UsersModel extends Model
 		return $data;
 	}
 
-	public function user_details($user_id) 
+	public function user_details($user_id)
 	{
 		$users = $this->select(['id', 'firstname', 'lastname', 'created_at'])
-					->where('id' , $user_id)
+					->where('id', $user_id)
 					->find();
 
 		$details = [];
 
-		foreach ($users as $user) 
+		foreach ($users as $user)
 		{
-			$details['user_id'] = $user->id;
-			$details['firstname'] = $user->firstname;
-			$details['lastname'] = $user->lastname;
+			$details['user_id']    = $user->id;
+			$details['firstname']  = $user->firstname;
+			$details['lastname']   = $user->lastname;
 			$details['created_at'] = $user->created_at;
 		}
 
 		return $details;
 	}
 
-	public function is_valid_user_channel($channel_owner_id, $firstname, $lastname) 
+	public function is_valid_user_channel($channel_owner_id, $firstname, $lastname)
 	{
 		$user = $this->where('id', $channel_owner_id)
 					 ->where('firstname', $firstname)
@@ -93,17 +93,20 @@ class UsersModel extends Model
 	public function search_channel($keywords)
 	{
 		$keywords = explode(' ', $keywords);
-		$i = 0;
+		$i        = 0;
 
 		$searchs = $this->select([
-			'id', 'firstname', 'lastname', 'created_at'
+			'id',
+			'firstname',
+			'lastname',
+			'created_at',
 		]);
 
 		foreach ($keywords as $keyword)
 		{
 			$i++;
 
-			if ($i == 1)
+			if ($i === 1)
 			{
 				$searchs->like('firstname', $keyword);
 				$searchs->orLike('lastname', $keyword);
@@ -125,8 +128,8 @@ class UsersModel extends Model
 	{
 		$this->where('id', $user_id)
 			 ->set([
-				'firstname' => $firstname,
-				'lastname' => $lastname,
+				 'firstname' => $firstname,
+				 'lastname'  => $lastname,
 			 ])
 			 ->update();
 
@@ -145,7 +148,7 @@ class UsersModel extends Model
 	public function get_hashed_password($user_id)
 	{
 		$password = '';
-		$users = $this->select('password')
+		$users    = $this->select('password')
 					->where('id', $user_id)
 					->find();
 

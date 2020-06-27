@@ -414,7 +414,7 @@ class Assets extends AssetsBase
 		}
 		else if ($current < 12 * $month)
 		{
-			if (floor($current / $month) == 1)
+			if (floor($current / $month) === 1)
 			{
 				return floor($current / $month) . ' month ago.';
 			}

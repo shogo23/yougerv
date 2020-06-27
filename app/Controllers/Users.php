@@ -286,14 +286,14 @@ class Users extends BaseController
 		if ($this->Assets->hasSession())
 		{
 			$data = [
-				'title' => 'Account Settings' . $this->web_title,
+				'title'    => 'Account Settings' . $this->web_title,
 				'fullname' => $this->Assets->get_fullname(),
 				'nickname' => $this->Assets->get_nickname(),
 			];
 
 			return view('users/accountsettings', $data);
 		}
-		else 
+		else
 		{
 			return redirect()->to('/');
 		}
@@ -308,7 +308,7 @@ class Users extends BaseController
 
 			//Post requests.
 			$firstname = $this->request->getPostGet('firstname');
-			$lastname = $this->request->getPostGet('lastname');
+			$lastname  = $this->request->getPostGet('lastname');
 
 			//Firstname and Lastname length should not exceed 12 characters or more.
 			if (strlen($firstname) <= 12 && strlen($lastname) <= 12)
@@ -359,7 +359,7 @@ class Users extends BaseController
 			{
 				echo (int) 1;
 			}
-			else 
+			else
 			{
 				echo (int) 0;
 			}
@@ -377,7 +377,7 @@ class Users extends BaseController
 			$password = $this->request->getPostGet('password');
 
 			//Password length should be 6 characters or more.
-			if (strlen($password) >= 6) 
+			if (strlen($password) >= 6)
 			{
 				if ($this->users->update_password($user_id, $password))
 				{

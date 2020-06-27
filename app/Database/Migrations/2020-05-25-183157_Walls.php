@@ -7,37 +7,37 @@ class Walls extends Migration
 	public function up()
 	{
 		$this->forge->addField([
-			'id'         => [
+			'id'            => [
 				'type'           => 'INT',
 				'constraint'     => 255,
 				'unassign'       => true,
 				'auto_increment' => true,
 			],
 
-			'wall_owner_id'    => [
+			'wall_owner_id' => [
 				'type'       => 'INT',
 				'constraint' => 255,
 			],
 
-			'poster_id' 	 => [
+			'poster_id'     => [
 				'type'       => 'INT',
 				'constraint' => 255,
 			],
 
-			'post' 		=> [
+			'post'          => [
 				'type' => 'LONGTEXT',
 			],
 
-			'approved'	=> [
-				'type' 		 => 'INT',
+			'approved'      => [
+				'type'       => 'INT',
 				'constraint' => 1,
 			],
 
-			'created_at' => [
+			'created_at'    => [
 				'type' => 'datetime',
 			],
 
-			'updated_at' => [
+			'updated_at'    => [
 				'type' => 'datetime',
 			],
 		]);

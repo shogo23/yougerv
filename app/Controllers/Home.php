@@ -24,21 +24,21 @@ class Home extends BaseController
 		if (! $this->Assets->hasSession())
 		{
 			$data = [
-				'title' => 'Home' . $this->web_title,
-				'videos' => $this->channels->homepage_videos(),
+				'title'                 => 'Home' . $this->web_title,
+				'videos'                => $this->channels->homepage_videos(),
 				'pagination_visibility' => $this->channels->pagination_visibility(),
-				'pager' => $this->channels->pager,
+				'pager'                 => $this->channels->pager,
 			];
 		}
 		else
 		{
 			$user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
-			$data = [
-				'title' => 'Home' . $this->web_title,
-				'videos' => $this->channels->homepage_videos(),
-				'subscriptions' => $this->subscriptions->get_all_subscriptions($user_id),
+			$data    = [
+				'title'                 => 'Home' . $this->web_title,
+				'videos'                => $this->channels->homepage_videos(),
+				'subscriptions'         => $this->subscriptions->get_all_subscriptions($user_id),
 				'pagination_visibility' => $this->channels->pagination_visibility(),
-				'pager' => $this->channels->pager,
+				'pager'                 => $this->channels->pager,
 			];
 		}
 

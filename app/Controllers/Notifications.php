@@ -6,254 +6,252 @@ use App\Models\SubscriptionsModel;
 
 class Notifications extends BaseController
 {
-    //Notifications Model Property Global.
-    private $notifications;
-    
-    //Channels Model Property Global.
-    private $channels;
+	//Notifications Model Property Global.
+	private $notifications;
 
-    //Subscriptions Model Property Global.
-    private $subscriptions;
+	//Channels Model Property Global.
+	private $channels;
 
-    public function __construct()
-    {
-        parent::__construct();
+	//Subscriptions Model Property Global.
+	private $subscriptions;
 
-        //Load Notifications Model.
-        $this->notifications = new NotificationsModel();
-        
-        //Load Channels Model.
-        $this->channels = new ChannelsModel();
+	public function __construct()
+	{
+		parent::__construct();
 
-        //Load Subscriptions Model.
-        $this->subscriptions = new SubscriptionsModel();
-    }
+		//Load Notifications Model.
+		$this->notifications = new NotificationsModel();
 
-    public function create()
-    {
-        if ($this->request->isAjax() && $this->Assets->hasSession())
-        {
-            $notification_type = $this->request->getPostGet('notification_type');
-            $user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
+		//Load Channels Model.
+		$this->channels = new ChannelsModel();
 
-            switch ($notification_type)
-            {
-                case 'video_upload':
+		//Load Subscriptions Model.
+		$this->subscriptions = new SubscriptionsModel();
+	}
 
-                    //Get Subscribers ids.
-                    $subscribers = $this->subscriptions->get_subscribers_id($user_id);
+	public function create()
+	{
+		if ($this->request->isAjax() && $this->Assets->hasSession())
+		{
+			$notification_type = $this->request->getPostGet('notification_type');
+			$user_id           = $this->Assets->getUserId($this->Assets->getSession('username'));
 
-                    if (count($subscribers) > 0)
-                    {
-                        //Video Uploader user id.
-                        $video_uploader_id = $this->Assets->getUserId($this->Assets->getSession('username'));
+			switch ($notification_type)
+			{
+				case 'video_upload':
 
-                        //Video Slug.
-                        $slug = $this->request->getPostGet('slug');
+					//Get Subscribers ids.
+					$subscribers = $this->subscriptions->get_subscribers_id($user_id);
 
-                        //Get Video Title via Slug.
-                        $title = $this->channels->get_video_title($slug)[0]['title'];
+					if (count($subscribers) > 0)
+					{
+						//Video Uploader user id.
+						$video_uploader_id = $this->Assets->getUserId($this->Assets->getSession('username'));
 
-                        //Get Video Thumb.
-                        $thumb = $this->Assets->get_picture();
+						//Video Slug.
+						$slug = $this->request->getPostGet('slug');
 
-                        //Uploader Fullname.
-                        $fullname = $this->Assets->get_fullname();
+						//Get Video Title via Slug.
+						$title = $this->channels->get_video_title($slug)[0]['title'];
 
-                        //Create Notification Message.
-                        $notification = [
-                            'type' =>   $notification_type,
-                            'video_uploader_id' => $video_uploader_id,
-                            'slug' =>   $slug,
-                            'message' => $fullname . ' uploaded a video. <strong>' . $title . '</strong>',
-                        ];
+						//Get Video Thumb.
+						$thumb = $this->Assets->get_picture();
 
-                        $notification = json_encode($notification);
+						//Uploader Fullname.
+						$fullname = $this->Assets->get_fullname();
 
-                        foreach ($subscribers as $subscriber)
-                        {
-                            $this->notifications->insert_notification($subscriber['subscriber_id'], $notification);
-                        }
-                    }
+						//Create Notification Message.
+						$notification = [
+							'type'              => $notification_type,
+							'video_uploader_id' => $video_uploader_id,
+							'slug'              => $slug,
+							'message'           => $fullname . ' uploaded a video. <strong>' . $title . '</strong>',
+						];
 
-                break;
+						$notification = json_encode($notification);
 
-                case 'video_comment':
+						foreach ($subscribers as $subscriber)
+						{
+							$this->notifications->insert_notification($subscriber['subscriber_id'], $notification);
+						}
+					}
 
-                    //Video owner user_id.
-                    $video_user_id = $this->request->getPostGet('video_user_id');
+				break;
 
-                    //Commentator user id.
-                    $commentator_id = $this->request->getPostGet('comentor_id');
+				case 'video_comment':
 
-                    //Video Slug
-                    $slug = $this->request->getPostGet('slug');
+					//Video owner user_id.
+					$video_user_id = $this->request->getPostGet('video_user_id');
 
-                    //Commentator Fullname.
-                    $fullname = $this->Assets->get_fullname();
+					//Commentator user id.
+					$commentator_id = $this->request->getPostGet('comentor_id');
 
-                    //Video title.
-                    $video_title = $this->Assets->reduce_title($this->channels->get_video_info($slug)['title']);
+					//Video Slug
+					$slug = $this->request->getPostGet('slug');
 
-                    if ($video_user_id !== $commentator_id)
-                    {
-                        $notification = [
-                            'type' => $notification_type,
-                            'commentator_id' => $commentator_id,
-                            'slug' => $slug,
-                            'message' => $fullname . ' commented to your video <strong>' . $video_title . '</strong>',
-                        ];
+					//Commentator Fullname.
+					$fullname = $this->Assets->get_fullname();
 
-                        $notification = json_encode($notification);
+					//Video title.
+					$video_title = $this->Assets->reduce_title($this->channels->get_video_info($slug)['title']);
 
-                        $this->notifications->insert_notification($video_user_id , $notification);
-                    }
-                break;
+					if ($video_user_id !== $commentator_id)
+					{
+						$notification = [
+							'type'           => $notification_type,
+							'commentator_id' => $commentator_id,
+							'slug'           => $slug,
+							'message'        => $fullname . ' commented to your video <strong>' . $video_title . '</strong>',
+						];
 
-                case 'my_wallpost':
+						$notification = json_encode($notification);
 
-                    //Get User id.
-                    $user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
+						$this->notifications->insert_notification($video_user_id, $notification);
+					}
+				break;
 
-                    //User's Fullname.
-                    $fullname = explode(' ', $this->Assets->get_fullname());
+				case 'my_wallpost':
 
-                    //User's Fullname
-                    $firstname = $fullname[0];
+					//Get User id.
+					$user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
 
-                    //User's Lastname.
-                    $lastname = $fullname[1];
+					//User's Fullname.
+					$fullname = explode(' ', $this->Assets->get_fullname());
 
-                    //Get Subscribers ids.
-                    $subscribers = $this->subscriptions->get_subscribers_id($user_id);
+					//User's Fullname
+					$firstname = $fullname[0];
 
-                    //Create Notification Message.
-                    $notification = [
-                        'type' =>   $notification_type,
-                        'user_id' => $user_id,
-                        'firstname' => $firstname,
-                        'lastname' => $lastname,
-                        'message' => '<strong>' . $firstname . ' ' . $lastname  . '</strong> posted in his/her wall.',
-                    ];
+					//User's Lastname.
+					$lastname = $fullname[1];
 
-                    $notification = json_encode($notification);
+					//Get Subscribers ids.
+					$subscribers = $this->subscriptions->get_subscribers_id($user_id);
 
-                    foreach ($subscribers as $subscriber)
-                    {
-                        $this->notifications->insert_notification($subscriber['subscriber_id'], $notification);
-                    }
-                break;
+					//Create Notification Message.
+					$notification = [
+						'type'      => $notification_type,
+						'user_id'   => $user_id,
+						'firstname' => $firstname,
+						'lastname'  => $lastname,
+						'message'   => '<strong>' . $firstname . ' ' . $lastname . '</strong> posted in his/her wall.',
+					];
 
-                case 'wall_post':
+					$notification = json_encode($notification);
 
-                    //Poster user id.
-                    $poster_id = $this->Assets->getUserId($this->Assets->getSession('username'));
-                    
-                    //Channel owner id.
-                    $channel_ownner_id = $this->request->getPostGet('channel_owner_id');
+					foreach ($subscribers as $subscriber)
+					{
+						$this->notifications->insert_notification($subscriber['subscriber_id'], $notification);
+					}
+				break;
 
-                    //Channel owner firstname.
-                    $channel_owner_firstname = $this->request->getPostGet('channel_owner_firstname');
-                    
+				case 'wall_post':
 
-                    //Channel owner lastname.
-                    $channel_owner_lastname = $this->request->getPostGet('channel_owner_lastname');
+					//Poster user id.
+					$poster_id = $this->Assets->getUserId($this->Assets->getSession('username'));
 
-                    //Wall poster Fullname.
-                    $fullname = $this->Assets->get_fullname();
+					//Channel owner id.
+					$channel_ownner_id = $this->request->getPostGet('channel_owner_id');
 
-                    $notification = [
-                        'type' => $notification_type,
-                        'poster_id' => $poster_id,
-                        'channel_owner_firstname' => $channel_owner_firstname,
-                        'channel_owner_lastname' => $channel_owner_lastname,
-                        'wall_poster_fullname' => $fullname,
-                        'notification' => $fullname . ' posted on your wall.',
-                    ];
+					//Channel owner firstname.
+					$channel_owner_firstname = $this->request->getPostGet('channel_owner_firstname');
 
-                    $notification = json_encode($notification);
-                    
-                    $this->notifications->insert_notification($channel_ownner_id , $notification);
-                break;
+					//Channel owner lastname.
+					$channel_owner_lastname = $this->request->getPostGet('channel_owner_lastname');
 
-                case 'subscribe':
+					//Wall poster Fullname.
+					$fullname = $this->Assets->get_fullname();
 
-                    //Subscriber user id.
-                    $subscriber_id = $this->Assets->getUserId($this->Assets->getSession('username'));
-                    
-                    //Channel owner id.
-                    $channel_ownner_id = $this->request->getPostGet('channel_owner_id');
+					$notification = [
+						'type'                    => $notification_type,
+						'poster_id'               => $poster_id,
+						'channel_owner_firstname' => $channel_owner_firstname,
+						'channel_owner_lastname'  => $channel_owner_lastname,
+						'wall_poster_fullname'    => $fullname,
+						'notification'            => $fullname . ' posted on your wall.',
+					];
 
-                    //Channel owner firstname.
-                    $channel_owner_firstname = $this->request->getPostGet('channel_owner_firstname');
-                    
+					$notification = json_encode($notification);
 
-                    //Channel owner lastname.
-                    $channel_owner_lastname = $this->request->getPostGet('channel_owner_lastname');
+					$this->notifications->insert_notification($channel_ownner_id, $notification);
+				break;
 
-                    //Wall poster Fullname.
-                    $fullname = $this->Assets->get_fullname();
+				case 'subscribe':
 
-                    $notification = [
-                        'type' => $notification_type,
-                        'subscriber_id' => $subscriber_id,
-                        'channel_owner_firstname' => $channel_owner_firstname,
-                        'channel_owner_lastname' => $channel_owner_lastname,
-                        'wall_poster_fullname' => $fullname,
-                        'notification' => $fullname . ' Subscribed to your channel.',
-                    ];
+					//Subscriber user id.
+					$subscriber_id = $this->Assets->getUserId($this->Assets->getSession('username'));
 
-                    $notification = json_encode($notification);
+					//Channel owner id.
+					$channel_ownner_id = $this->request->getPostGet('channel_owner_id');
 
-                    $this->notifications->insert_notification($channel_ownner_id , $notification);
-                break;
-            }
-        }
-    }
+					//Channel owner firstname.
+					$channel_owner_firstname = $this->request->getPostGet('channel_owner_firstname');
 
-    public function check()
-    {
-        if ($this->request->isAjax() && $this->Assets->hasSession())
-        {
-            $user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
+					//Channel owner lastname.
+					$channel_owner_lastname = $this->request->getPostGet('channel_owner_lastname');
 
-            echo $this->notifications->has_notification($user_id);
-        }
-    }
+					//Wall poster Fullname.
+					$fullname = $this->Assets->get_fullname();
 
-    public function update()
-    {
-        if ($this->request->isAjax() && $this->Assets->hasSession())
-        {
-            $user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
+					$notification = [
+						'type'                    => $notification_type,
+						'subscriber_id'           => $subscriber_id,
+						'channel_owner_firstname' => $channel_owner_firstname,
+						'channel_owner_lastname'  => $channel_owner_lastname,
+						'wall_poster_fullname'    => $fullname,
+						'notification'            => $fullname . ' Subscribed to your channel.',
+					];
 
-            if ($this->notifications->mark_as_readed($user_id))
-            {
-                echo 'ok';
-            }
-        }
-    }
+					$notification = json_encode($notification);
 
-    public function get()
-    {
-        if ($this->request->isAjax() && $this->Assets->hasSession())
-        {
-            $user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
-            $data = [
-                'user_id' => $user_id,
-                'notifications' => $this->notifications->get_notification($user_id),
-            ];
+					$this->notifications->insert_notification($channel_ownner_id, $notification);
+				break;
+			}
+		}
+	}
 
-            return view('notifications/notification', $data);
-        }
-    }
+	public function check()
+	{
+		if ($this->request->isAjax() && $this->Assets->hasSession())
+		{
+			$user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
 
-    public function clear()
-    {
-        if ($this->request->isAjax() && $this->Assets->hasSession())
-        {
-            $user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
-            $this->notifications->clear_all($user_id);
-        }
-    }
+			echo $this->notifications->has_notification($user_id);
+		}
+	}
+
+	public function update()
+	{
+		if ($this->request->isAjax() && $this->Assets->hasSession())
+		{
+			$user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
+
+			if ($this->notifications->mark_as_readed($user_id))
+			{
+				echo 'ok';
+			}
+		}
+	}
+
+	public function get()
+	{
+		if ($this->request->isAjax() && $this->Assets->hasSession())
+		{
+			$user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
+			$data    = [
+				'user_id'       => $user_id,
+				'notifications' => $this->notifications->get_notification($user_id),
+			];
+
+			return view('notifications/notification', $data);
+		}
+	}
+
+	public function clear()
+	{
+		if ($this->request->isAjax() && $this->Assets->hasSession())
+		{
+			$user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
+			$this->notifications->clear_all($user_id);
+		}
+	}
 }

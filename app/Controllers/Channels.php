@@ -9,7 +9,7 @@ use App\Models\SubscriptionsModel;
 use App\Models\NotificationsModel;
 
 class Channels extends BaseController
-{        
+{
 	//FFMPEG Credentials Global.
 	private $create = [];
 
@@ -81,7 +81,7 @@ class Channels extends BaseController
 
 		//Load Notifications Model.
 		$this->notifications = new NotificationsModel();
-		
+
 		//Set Secure Video Key.
 		$this->secure_video_key = $this->Assets->randomstr(10);
 	}
@@ -93,7 +93,7 @@ class Channels extends BaseController
 			$this->channels->view($this->Assets->get_last_uri());
 
 			$title          = $this->channels->get_video_info($this->Assets->get_last_uri())['title'];
-			$user_id		= $this->channels->get_video_info($this->Assets->get_last_uri())['user_id'];
+			$user_id        = $this->channels->get_video_info($this->Assets->get_last_uri())['user_id'];
 			$video_data     = $this->channels->get_video_info($this->Assets->get_last_uri());
 			$lastest_videos = $this->channels->get_latest_videos($this->Assets->get_last_uri());
 
@@ -104,7 +104,7 @@ class Channels extends BaseController
 				'title'            => $title . $this->web_title,
 				'data'             => $video_data,
 				'comments'         => $this->comments,
-				'user_id'		   => $user_id,
+				'user_id'          => $user_id,
 				'latest_videos'    => $lastest_videos,
 				'secure_video_key' => $this->secure_video_key,
 			];
@@ -206,7 +206,7 @@ class Channels extends BaseController
 			$user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
 
 			$data = [
-				'title' 	   => 'My Channel' . $this->web_title,
+				'title'        => 'My Channel' . $this->web_title,
 				'user_details' => $this->users->user_details($user_id),
 			];
 
@@ -225,7 +225,7 @@ class Channels extends BaseController
 			$data = [
 				'user_id' => $this->request->getPostGet('user_id'),
 			];
-			
+
 			return view('channels/mychannel/mywall', $data);
 		}
 	}
@@ -236,12 +236,13 @@ class Channels extends BaseController
 		{
 			$data = [
 				'wall_owner_id' => $this->request->getPostGet('user_id'),
-				'poster_id' => $this->request->getPostGet('user_id'),
-				'post' => $this->Assets->filter_tags($this->request->getPostGet('post')),
-				'approved' => 1,
+				'poster_id'     => $this->request->getPostGet('user_id'),
+				'post'          => $this->Assets->filter_tags($this->request->getPostGet('post')),
+				'approved'      => 1,
 			];
 
-			if ($this->walls->insert_wallpost($data)) {
+			if ($this->walls->insert_wallpost($data))
+			{
 				echo 'ok';
 			}
 		}
@@ -252,9 +253,9 @@ class Channels extends BaseController
 		if ($this->request->isAjax() && $this->Assets->hasSession())
 		{
 			$user_id = $this->request->getPostGet('user_id');
-			$data = [
-				'user_id' => $user_id,
-				'walls' => $this->walls,
+			$data    = [
+				'user_id'     => $user_id,
+				'walls'       => $this->walls,
 				'mywallposts' => $this->walls->get_posts($user_id),
 			];
 
@@ -267,10 +268,10 @@ class Channels extends BaseController
 		if ($this->request->isAjax() && $this->Assets->hasSession())
 		{
 			$user_id = $this->request->getPostGet('user_id');
-			$offset = $this->request->getPostGet('offset');
+			$offset  = $this->request->getPostGet('offset');
 
 			$data = [
-				'user_id' => $user_id,
+				'user_id'     => $user_id,
 				'mywallposts' => $this->walls->more_posts($user_id, $offset),
 			];
 
@@ -298,7 +299,7 @@ class Channels extends BaseController
 		{
 			$user_id = $this->request->getPostGet('user_id');
 			$post_id = $this->request->getPostGet('post_id');
-			$post = $this->Assets->filter_tags($this->request->getPostGet('post'));
+			$post    = $this->Assets->filter_tags($this->request->getPostGet('post'));
 
 			if ($this->walls->is_post_owner($user_id, $post_id) && $this->walls->update_owner_post($user_id, $post_id, $post))
 			{
@@ -325,7 +326,6 @@ class Channels extends BaseController
 	{
 		if ($this->request->isAjax() && $this->Assets->hasSession())
 		{
-
 			$data = [
 				'user_id' => $this->Assets->getUserId($this->Assets->getSession('username')),
 				'videos'  => $this->channels->mychannel_videos($this->request->getPostGet('user_id')),
@@ -339,8 +339,8 @@ class Channels extends BaseController
 	{
 		if ($this->request->isAjax() && $this->Assets->hasSession())
 		{
-			$user_id = $this->request->getPostGet('user_id');
-			$offset = $this->request->getPostGet('offset');
+			$user_id        = $this->request->getPostGet('user_id');
+			$offset         = $this->request->getPostGet('offset');
 			$data['videos'] = $this->channels->load_more_videos($user_id, $offset);
 
 			return view('channels/mychannel/loadmorevideos', $data);
@@ -351,9 +351,9 @@ class Channels extends BaseController
 	{
 		if ($this->request->isAjax() && $this->Assets->hasSession())
 		{
-			$video_id = $this->request->getPostGet('video_id');
+			$video_id         = $this->request->getPostGet('video_id');
 			$data['video_id'] = $video_id;
-			$data['videos'] = $this->channels->get_video_details($video_id);
+			$data['videos']   = $this->channels->get_video_details($video_id);
 
 			return view('channels/mychannel/editvideodetails', $data);
 		}
@@ -366,9 +366,9 @@ class Channels extends BaseController
 			$video_id = $this->request->getPostGet('video_id');
 
 			$data = [
-				'title' => $this->request->getPostGet('title'),
+				'title'       => $this->request->getPostGet('title'),
 				'description' => $this->Assets->filter_tags($this->request->getPostGet('description')),
-				'tags' => $this->request->getPostGet('tags'),
+				'tags'        => $this->request->getPostGet('tags'),
 			];
 
 			if ($this->channels->update_video_details($data, $video_id))
@@ -383,10 +383,10 @@ class Channels extends BaseController
 		if ($this->request->isAjax() && $this->Assets->hasSession())
 		{
 			$video_id = $this->request->getPostGet('video_id');
-			$video = $this->channels->get_video_details($video_id);
+			$video    = $this->channels->get_video_details($video_id);
 
 			//Delete Thumb Picture
-			if (file_exists($this->thumb_path . $video[0]['slug'] . '.jpg')) 
+			if (file_exists($this->thumb_path . $video[0]['slug'] . '.jpg'))
 			{
 				unlink($this->thumb_path . $video[0]['slug'] . '.jpg');
 			}
@@ -412,7 +412,7 @@ class Channels extends BaseController
 			$user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
 
 			$data = [
-				'user_id' => $user_id,
+				'user_id'     => $user_id,
 				'subscribers' => $this->subscriptions->get_subscribers($user_id),
 			];
 
@@ -424,7 +424,7 @@ class Channels extends BaseController
 	{
 		if ($this->request->isAjax() && $this->Assets->hasSession())
 		{
-			$user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
+			$user_id       = $this->Assets->getUserId($this->Assets->getSession('username'));
 			$subscriber_id = $this->request->getPostGet('subscriber_id');
 
 			if ($this->subscriptions->remove_subscriber($user_id, $subscriber_id))
@@ -439,7 +439,7 @@ class Channels extends BaseController
 		if ($this->request->isAjax() && $this->Assets->hasSession())
 		{
 			$subscriber_id = $this->Assets->getUserId($this->Assets->getSession('username'));
-			$data = [
+			$data          = [
 				'subscriber_id' => $subscriber_id,
 				'subscriptions' => $this->subscriptions->get_subscriptions($subscriber_id),
 			];
@@ -453,7 +453,7 @@ class Channels extends BaseController
 		if ($this->request->isAjax() && $this->Assets->hasSession())
 		{
 			$subscriber_id = $this->Assets->getUserId($this->Assets->getSession('username'));
-			$user_id = $this->request->getPostGet('user_id');
+			$user_id       = $this->request->getPostGet('user_id');
 
 			if ($this->subscriptions->remove_subscription($subscriber_id, $user_id))
 			{
@@ -559,8 +559,8 @@ class Channels extends BaseController
 				 ->save($this->thumb_path . $slug . '.jpg');
 
 			$format = new \FFMpeg\Format\Video\X264('libmp3lame', 'libx264');
-			$format->on('progress', function ($video, $format, $percentage) use ($progress_file) {				
-				file_put_contents($progress_file, $percentage);
+			$format->on('progress', function ($video, $format, $percentage) use ($progress_file) {
+								file_put_contents($progress_file, $percentage);
 			});
 			$format->setKiloBitrate(389);
 
@@ -643,20 +643,20 @@ class Channels extends BaseController
 	public function videostream()
 	{
 		$filename = $this->Assets->get_last_uri();
-		$key = $this->request->getPostGet('key');
+		$key      = $this->request->getPostGet('key');
 
-		if (file_exists($this->v_output_path . $filename) && $key && isset($_COOKIE['secure_video']) && $_COOKIE['secure_video'] == $key)
+		if (file_exists($this->v_output_path . $filename) && $key && isset($_COOKIE['secure_video']) && $_COOKIE['secure_video'] === $key)
 		{
-			header($_SERVER["SERVER_PROTOCOL"] . " 200 OK");
-			header("Cache-Control: public");
-			header("Content-Type: video/mp4");
+			header($_SERVER['SERVER_PROTOCOL'] . ' 200 OK');
+			header('Cache-Control: public');
+			header('Content-Type: video/mp4');
 			header('Accept-Ranges: bytes');
-			header("Content-Transfer-Encoding: Binary");
-			header("Content-Length:".filesize($this->v_output_path . $filename));
+			header('Content-Transfer-Encoding: Binary');
+			header('Content-Length:' . filesize($this->v_output_path . $filename));
 			header("Content-Disposition: attachment; filename=$filename");
 			readfile($this->v_output_path . $filename);
-		} 
-		else 
+		}
+		else
 		{
 			die('Forbidden Access');
 		}
@@ -664,30 +664,29 @@ class Channels extends BaseController
 
 	public function userchannel()
 	{
-		$uri = explode('/', uri_string());
-		$channel_owner_id = $uri[1];
+		$uri                    = explode('/', uri_string());
+		$channel_owner_id       = $uri[1];
 		$channel_owner_fullname = explode('_', $uri[2]);
-		$firstname = $channel_owner_fullname[0];
-		$lastname = $channel_owner_fullname[1];
-		$session_user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
+		$firstname              = $channel_owner_fullname[0];
+		$lastname               = $channel_owner_fullname[1];
+		$session_user_id        = $this->Assets->getUserId($this->Assets->getSession('username'));
 
 		/*
 		*	If user is logged in and channel is owned by logged user and channel is valid.
 		*	redirect to my channel.
 		*/
-		if ($this->Assets->hasSession() && $channel_owner_id == $session_user_id && $this->users->is_valid_user_channel($channel_owner_id, $firstname, $lastname))
+		if ($this->Assets->hasSession() && $channel_owner_id === $session_user_id && $this->users->is_valid_user_channel($channel_owner_id, $firstname, $lastname))
 		{
 			return redirect()->to('/mychannel');
-		} 
-		else 
+		}
+		else
 		{
-
 			if ($this->users->is_valid_user_channel($channel_owner_id, $firstname, $lastname))
 			{
 				$data = [
-					'title' 		   => $firstname . ' ' . $lastname . '\'s Channel' . $this->web_title,
-					'firstname'		   => $firstname,
-					'lastname'		   => $lastname,
+					'title'            => $firstname . ' ' . $lastname . '\'s Channel' . $this->web_title,
+					'firstname'        => $firstname,
+					'lastname'         => $lastname,
 					'channel_owner_id' => $channel_owner_id,
 					'is_subscribed'    => $this->subscriptions->is_subscribed($channel_owner_id, $session_user_id),
 					'user_details'     => $this->users->user_details($channel_owner_id),
@@ -704,18 +703,18 @@ class Channels extends BaseController
 	{
 		if ($this->request->isAjax())
 		{
-			$uri = explode('/', uri_string());
-			$channel_owner_id = $uri[1];
+			$uri                    = explode('/', uri_string());
+			$channel_owner_id       = $uri[1];
 			$channel_owner_fullname = explode('_', $uri[2]);
-			$firstname = $channel_owner_fullname[0];
-			$lastname = $channel_owner_fullname[1];
+			$firstname              = $channel_owner_fullname[0];
+			$lastname               = $channel_owner_fullname[1];
 
 			if ($this->users->is_valid_user_channel($channel_owner_id, $firstname, $lastname))
 			{
 				$data = [
 					'channel_owner_id' => $channel_owner_id,
-					'firstname' => $firstname,
-					'lastname' => $lastname,
+					'firstname'        => $firstname,
+					'lastname'         => $lastname,
 				];
 
 				return view('channels/userchannel/userwall', $data);
@@ -727,23 +726,23 @@ class Channels extends BaseController
 	{
 		if ($this->request->isAjax())
 		{
-			$uri = explode('/', uri_string());
-			$channel_owner_id = $uri[1];
+			$uri                    = explode('/', uri_string());
+			$channel_owner_id       = $uri[1];
 			$channel_owner_fullname = explode('_', $uri[2]);
-			$firstname = $channel_owner_fullname[0];
-			$lastname = $channel_owner_fullname[1];
+			$firstname              = $channel_owner_fullname[0];
+			$lastname               = $channel_owner_fullname[1];
 
 			if ($this->users->is_valid_user_channel($channel_owner_id, $firstname, $lastname))
 			{
 				$poster_id = $this->Assets->getUserId($this->Assets->getSession('username'));
-				$post = $this->request->getPostGet('post');
-				$data = [
+				$post      = $this->request->getPostGet('post');
+				$data      = [
 					'wall_owner_id' => $channel_owner_id,
-					'poster_id' => $poster_id,
-					'post' => $post,
-					'approved' => 0,
+					'poster_id'     => $poster_id,
+					'post'          => $post,
+					'approved'      => 0,
 				];
-				
+
 				if ($this->walls->insert_wallpost($data))
 				{
 					echo 'ok';
@@ -756,22 +755,22 @@ class Channels extends BaseController
 	{
 		if ($this->request->isAjax())
 		{
-			$uri = explode('/', uri_string());
-			$channel_owner_id = $uri[1];
+			$uri                    = explode('/', uri_string());
+			$channel_owner_id       = $uri[1];
 			$channel_owner_fullname = explode('_', $uri[2]);
-			$firstname = $channel_owner_fullname[0];
-			$lastname = $channel_owner_fullname[1];
+			$firstname              = $channel_owner_fullname[0];
+			$lastname               = $channel_owner_fullname[1];
 
 			if ($this->users->is_valid_user_channel($channel_owner_id, $firstname, $lastname))
 			{
 				$data = [
-					'firstname' => $firstname,
-					'lastname' => $lastname,
+					'firstname'        => $firstname,
+					'lastname'         => $lastname,
 					'channel_owner_id' => $channel_owner_id,
-					'userwalls' => $this->walls->get_user_posts($channel_owner_id),
-					'walls' => $this->walls,
+					'userwalls'        => $this->walls->get_user_posts($channel_owner_id),
+					'walls'            => $this->walls,
 				];
-	
+
 				return view('channels/userchannel/loaduserwallposts', $data);
 			}
 		}
@@ -781,19 +780,19 @@ class Channels extends BaseController
 	{
 		if ($this->request->isAjax())
 		{
-			$uri = explode('/', uri_string());
-			$channel_owner_id = $uri[1];
+			$uri                    = explode('/', uri_string());
+			$channel_owner_id       = $uri[1];
 			$channel_owner_fullname = explode('_', $uri[2]);
-			$firstname = $channel_owner_fullname[0];
-			$lastname = $channel_owner_fullname[1];
+			$firstname              = $channel_owner_fullname[0];
+			$lastname               = $channel_owner_fullname[1];
 
 			if ($this->users->is_valid_user_channel($channel_owner_id, $firstname, $lastname))
 			{
 				$offset = $this->request->getPostGet('offset');
-				$data = [
+				$data   = [
 					'channel_owner_id' => $channel_owner_id,
-					'userwalls' => $this->walls->user_more_post($channel_owner_id, $offset),
-					'walls' => $this->walls,
+					'userwalls'        => $this->walls->user_more_post($channel_owner_id, $offset),
+					'walls'            => $this->walls,
 				];
 
 				return view('channels/userchannel/loadmoreuserwallposts', $data);
@@ -801,18 +800,19 @@ class Channels extends BaseController
 		}
 	}
 
-	public function userdeletepost() {
+	public function userdeletepost()
+	{
 		if ($this->request->isAjax())
 		{
-			$uri = explode('/', uri_string());
-			$channel_owner_id = $uri[1];
+			$uri                    = explode('/', uri_string());
+			$channel_owner_id       = $uri[1];
 			$channel_owner_fullname = explode('_', $uri[2]);
-			$firstname = $channel_owner_fullname[0];
-			$lastname = $channel_owner_fullname[1];
+			$firstname              = $channel_owner_fullname[0];
+			$lastname               = $channel_owner_fullname[1];
 
 			if ($this->users->is_valid_user_channel($channel_owner_id, $firstname, $lastname))
 			{
-				$post_id = $this->request->getPostGet('post_id');
+				$post_id   = $this->request->getPostGet('post_id');
 				$poster_id = $this->Assets->getUserId($this->Assets->getSession('username'));
 
 				if ($this->walls->is_your_post($post_id, $poster_id) && $this->walls->delete_post($post_id))
@@ -827,17 +827,17 @@ class Channels extends BaseController
 	{
 		if ($this->request->isAjax())
 		{
-			$uri = explode('/', uri_string());
-			$channel_owner_id = $uri[1];
+			$uri                    = explode('/', uri_string());
+			$channel_owner_id       = $uri[1];
 			$channel_owner_fullname = explode('_', $uri[2]);
-			$firstname = $channel_owner_fullname[0];
-			$lastname = $channel_owner_fullname[1];
+			$firstname              = $channel_owner_fullname[0];
+			$lastname               = $channel_owner_fullname[1];
 
 			if ($this->users->is_valid_user_channel($channel_owner_id, $firstname, $lastname))
 			{
 				$poster_id = $this->request->getPostGet('poster_id');
-				$post_id = $this->request->getPostGet('post_id');
-				$post = $this->Assets->filter_tags($this->request->getPostGet('post'));
+				$post_id   = $this->request->getPostGet('post_id');
+				$post      = $this->Assets->filter_tags($this->request->getPostGet('post'));
 
 				if ($this->walls->is_your_post($post_id, $poster_id) && $this->walls->update_user_post($channel_owner_id, $poster_id, $post_id, $post))
 				{
@@ -851,22 +851,22 @@ class Channels extends BaseController
 	{
 		if ($this->request->isAjax())
 		{
-			$uri = explode('/', uri_string());
-			$channel_owner_id = $uri[1];
+			$uri                    = explode('/', uri_string());
+			$channel_owner_id       = $uri[1];
 			$channel_owner_fullname = explode('_', $uri[2]);
-			$firstname = $channel_owner_fullname[0];
-			$lastname = $channel_owner_fullname[1];
+			$firstname              = $channel_owner_fullname[0];
+			$lastname               = $channel_owner_fullname[1];
 
 			if ($this->users->is_valid_user_channel($channel_owner_id, $firstname, $lastname))
 			{
 				$data = [
 					'channel_owner_id' => $channel_owner_id,
-					'firstname' 	   => $firstname,
-					'lastname'		   => $lastname,
-					'videos'  		   => $this->channels->mychannel_videos($channel_owner_id),
+					'firstname'        => $firstname,
+					'lastname'         => $lastname,
+					'videos'           => $this->channels->mychannel_videos($channel_owner_id),
 				];
-	
-				return view('channels/userchannel/uservideos', $data);	
+
+				return view('channels/userchannel/uservideos', $data);
 			}
 		}
 	}
@@ -875,15 +875,15 @@ class Channels extends BaseController
 	{
 		if ($this->request->isAjax())
 		{
-			$uri = explode('/', uri_string());
-			$channel_owner_id = $uri[1];
+			$uri                    = explode('/', uri_string());
+			$channel_owner_id       = $uri[1];
 			$channel_owner_fullname = explode('_', $uri[2]);
-			$firstname = $channel_owner_fullname[0];
-			$lastname = $channel_owner_fullname[1];
+			$firstname              = $channel_owner_fullname[0];
+			$lastname               = $channel_owner_fullname[1];
 
 			if ($this->users->is_valid_user_channel($channel_owner_id, $firstname, $lastname))
 			{
-				$offset = $this->request->getPostGet('offset');
+				$offset         = $this->request->getPostGet('offset');
 				$data['videos'] = $this->channels->load_more_videos($channel_owner_id, $offset);
 
 				return view('channels/userchannel/loadmoreuservideos', $data);
@@ -895,15 +895,15 @@ class Channels extends BaseController
 	{
 		if ($this->request->isAjax() && $this->Assets->hasSession())
 		{
-			$uri = explode('/', uri_string());
-			$channel_owner_id = $uri[1];
+			$uri                    = explode('/', uri_string());
+			$channel_owner_id       = $uri[1];
 			$channel_owner_fullname = explode('_', $uri[2]);
-			$firstname = $channel_owner_fullname[0];
-			$lastname = $channel_owner_fullname[1];
+			$firstname              = $channel_owner_fullname[0];
+			$lastname               = $channel_owner_fullname[1];
 
 			if ($this->users->is_valid_user_channel($channel_owner_id, $firstname, $lastname))
 			{
-				$subscribe = $this->request->getPostGet('subscribe');
+				$subscribe     = $this->request->getPostGet('subscribe');
 				$subscriber_id = $this->Assets->getUserId($this->Assets->getSession('username'));
 
 				if ($subscribe)

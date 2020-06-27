@@ -34,7 +34,7 @@ class BaseController extends Controller {
 
 	public function __construct()
 	{
-		$this->web_title = ' - '. env('app.website.title');
+		$this->web_title = ' - ' . env('app.website.title');
 
 		$this->Assets = new Assets();
 	}

@@ -2,7 +2,7 @@
 	//Scss path for this view file /src/sess/partials/nav.scss
 	use App\Assets\Assets;
 
-	$assets = new Assets();
+	$assets  = new Assets();
 	$request = \Config\Services::request();
 ?>
 

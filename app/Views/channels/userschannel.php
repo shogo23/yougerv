@@ -1,8 +1,9 @@
 <?php
-    //Scss path for this view file /src/sess/pages/userschannel.scss
-    
-    use App\Assets\Assets;
-    $assets = new Assets();
+	//Scss path for this view file /src/sess/pages/userschannel.scss
+
+	use App\Assets\Assets;
+
+	$assets = new Assets();
 ?>
 
 <?= $this->extend('template') ?>
@@ -10,14 +11,14 @@
 <?= $this->section('content') ?>
 
 <div class="userschannel">
-    <div class="contents">
-        <div class="user_details">
+	<div class="contents">
+		<div class="user_details">
 			<div class="the_contents">
 				<div class="picture">
 					<img src="<?= $assets->get_picture($user_details['user_id']) ?>" />
 				</div>
 				<div class="details">
-					<div class="fullname"><?= $user_details['firstname'] . ' ' .$user_details['lastname'] ?></div>
+					<div class="fullname"><?= $user_details['firstname'] . ' ' . $user_details['lastname'] ?></div>
 					<div class="joined">Joined at: <?= $assets->when($user_details['created_at']) ?></div>
 					<div class="subscription">
 						<span id="subscribe"></span>
@@ -50,7 +51,7 @@
 <script>
 	var page_active = "userwall";
 	<?php if ($assets->hasSession()) : ?>
-	<?= ! $is_subscribed ? 'var is_subscribed = false' : 'var is_subscribed = true'; ?>
+		<?= ! $is_subscribed ? 'var is_subscribed = false' : 'var is_subscribed = true'; ?>
 
 	load_subscribe_btn();
 	<?php endif; ?>

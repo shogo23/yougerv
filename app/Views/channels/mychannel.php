@@ -3,8 +3,8 @@
 
 	use App\Assets\Assets;
 	use Config\Services;
-	
-	$assets = new Assets();
+
+	$assets  = new Assets();
 	$request = Services::request();
 
 ?>
@@ -21,7 +21,7 @@
 					<img src="<?= $assets->get_picture($user_details['user_id']) ?>" />
 				</div>
 				<div class="details">
-					<div class="fullname"><?= $user_details['firstname'] . ' ' .$user_details['lastname'] ?></div>
+					<div class="fullname"><?= $user_details['firstname'] . ' ' . $user_details['lastname'] ?></div>
 					<div class="joined">Joined at: <?= $assets->when($user_details['created_at']) ?></div>
 				</div>
 				<div class="clear"></div>

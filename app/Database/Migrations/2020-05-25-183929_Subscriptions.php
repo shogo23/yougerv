@@ -7,32 +7,31 @@ class Subscriptions extends Migration
 	public function up()
 	{
 		$this->forge->addField([
-			'id'         => [
+			'id'            => [
 				'type'           => 'INT',
 				'constraint'     => 255,
 				'unassign'       => true,
 				'auto_increment' => true,
 			],
 
-			'user_id'    => [
+			'user_id'       => [
 				'type'       => 'INT',
 				'constraint' => 255,
 			],
 
-			'subscriber_id'    => [
+			'subscriber_id' => [
 				'type'       => 'INT',
 				'constraint' => 255,
 			],
 
-			'created_at' => [
+			'created_at'    => [
 				'type' => 'datetime',
 			],
 
-			'updated_at' => [
+			'updated_at'    => [
 				'type' => 'datetime',
 			],
 		]);
-		
 
 		$this->forge->addKey('id', true);
 		$this->forge->createTable('subscriptions');
