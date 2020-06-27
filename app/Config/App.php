@@ -21,7 +21,7 @@ class App extends BaseConfig
 	| environments.
 	|
 	*/
-	public $baseURL = 'http://theci4.test/';
+	public $baseURL = 'http://theci4.test:8080/';
 
 	/*
 	|--------------------------------------------------------------------------

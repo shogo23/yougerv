@@ -207,7 +207,7 @@ class VideoSeeder extends \CodeIgniter\Database\Seeder
 				'tags'          => 'Naruto,Boruto',
 				'orig_filename' => 'y2mate.com - Boruto Funny Moments, Boruto And Naruto Funny Moments, Boruto And Sarada Funny Moments, Boruto Funny_HN6wNgqTxiU_360p.mp4',
 				'filename'      => 'eb183e1d77e93b1f7ebf9272baa6ae.mp4',
-				'length'        => '',
+				'length'        => '06:35',
 				'likes'         => 0,
 				'views'         => 0,
 				'converted'     => 1,

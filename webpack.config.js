@@ -80,6 +80,19 @@ module.exports = {
                     'css-loader',
                     'sass-loader',
                 ],
+            },
+            {
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: '/css/fonts/',
+                            publicPath: '/dist/css/fonts/'
+                        }
+                    }
+                ]
             }
         ]
     },
@@ -99,6 +112,14 @@ module.exports = {
 
         new webpack.ProvidePlugin({
             Plyr: 'Plyr'
+        }),
+
+        new webpack.ProvidePlugin({
+            AOS: 'AOS'
+        }),
+
+        new webpack.ProvidePlugin({
+            stretchTextarea: 'stretchTextarea'
         })
     ],
 

@@ -220,6 +220,38 @@ class Assets extends AssetsBase
 		return '/img/nopic.png';
 	}
 
+	public function get_picture($user_id = null)
+	{
+		if ($user_id === null)
+		{
+			$builder = $this->db->table('users');
+			$builder->select('picture');
+			$builder->where('username', $this->getSession('username'));
+			$query = $builder->get();
+		}
+		else
+		{
+			$builder = $this->db->table('users');
+			$builder->select('picture');
+			$builder->where('id', $user_id);
+			$query = $builder->get();
+		}
+
+		$picture = '';
+
+		foreach ($query->getResult() as $user)
+		{
+			$picture = $user->picture;
+		}
+
+		if ($picture !== null && $picture !== '')
+		{
+			return '/img/users/pictures/' . $picture;
+		}
+
+		return '/img/nopic.png';
+	}
+
 	public function deletePictures($user_id)
 	{
 		//Get User's Picture filename.
@@ -341,6 +373,8 @@ class Assets extends AssetsBase
 		$minute = 60 * $second;
 		$hour   = 60 * $minute;
 		$day    = 24 * $hour;
+		$month  = 30 * $day;
+		$year   = 12 * $month;
 
 		$current = time() - strtotime($datetime);
 
@@ -378,21 +412,29 @@ class Assets extends AssetsBase
 		{
 			return floor($current / $day) . ' days ago.';
 		}
+		else if ($current < 12 * $month)
+		{
+			if (floor($current / $month) == 1)
+			{
+				return floor($current / $month) . ' month ago.';
+			}
+
+			return floor($current / $month) . ' month(s) ago.';
+		}
 		else
 		{
-			return 'Posted on: ' . date('M j, Y h:i:a', strtotime($datetime));
+			return date('M j, Y h:i:a', strtotime($datetime));
 		}
 	}
 
 	public function filter_tags($str)
 	{
-			//Strip html tags except <br> and <a>
-		$str =
-		$str = strip_tags(nl2br($str), '<br> <br /> <a>');
-
 		//Convert http://<strings> in clickable hyperlink.
 		$pattern = '@(http(s)?://)?(([a-zA-Z0-9])([-\w]+\.)+([^\s\.]+[^\s]*)+[^,.\s])@';
 		$str     = preg_replace($pattern, '<a target="_blank" href="http$2://$3">$0</a>', $str);
+
+		//Strip html tags except <br> and <a>
+		$str = nl2br(strip_tags($str, '<br> <br/> <a>'));
 
 		return $str;
 	}

@@ -28,10 +28,14 @@ class BaseController extends Controller {
 	 */
 	protected $helpers = [];
 
+	protected $web_title;
+
 	protected $Assets;
 
 	public function __construct()
 	{
+		$this->web_title = ' - '. env('app.website.title');
+
 		$this->Assets = new Assets();
 	}
 

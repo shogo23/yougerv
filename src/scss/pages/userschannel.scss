@@ -1,0 +1,162 @@
+//Style for register page.
+//View path /Views/channels/mychannel.php
+
+.userchannel_nav_active {
+    border-bottom: 3px solid $mychannelmenuselectorcolor;
+}
+
+.userschannel {
+    margin-top: 54px;
+
+    .contents {
+        .userchannel_nav_mini {
+            display: none;
+        }
+
+        .user_details {
+            border-left: 1px solid map-get($defaultContainer, borderColor);
+            border-right: 1px solid map-get($defaultContainer, borderColor);
+            background-color: map-get($defaultContainer, bgColor);
+           
+            .the_contents {
+                padding: 10px;
+                width: 60%;
+                margin: 0 auto;
+
+                .userchannel_nav_mini {
+                    display: none;
+                }
+
+                .picture {
+                    float: left;
+                    width: 40%;
+                    text-align: right;
+
+                    img {
+                        width: 250px;
+                        height: 250px;
+                        border-radius: 50%;
+                    }
+                }
+
+                .details {
+                    margin-top: 80px;
+                    float: left;
+                    width: 60%;
+
+                    .fullname {
+                        padding: 0 20px;
+                        font-size: 40px;
+                    }
+
+                    .joined {
+                        padding: 0 20px;
+                        font-size: 20px;
+                    }
+
+                    .subscription {
+                        padding: 0 20px;
+                        margin-top: 10px;
+                    }
+                }
+            }
+
+            @include screen-size(1190px) {
+                .the_contents {
+                    width: 80%;
+                }
+            }
+
+            @include screen-size(800px) {
+                .the_contents {
+                    width: 100%;
+
+                    .picture {
+                        float: none;
+                        width: 100%;
+                        text-align: center;
+                    }
+
+                    .details {
+                        float: none;
+                        width: 100%;
+                        margin-top: 0px;
+                        text-align: center;
+                    }
+
+                    @include screen-size(600px) {
+                        .details {
+                            .fullname {
+                                font-size: 30px;
+                            }
+                        }
+                    }
+
+                    @include screen-size(400px) {
+                        .picture {
+                            img {
+                                width: 200px;
+                                height: 200px;
+                            }
+                        }
+                    }
+
+                    @include screen-size(350px) {
+                        .details {
+                            .fullname {
+                                font-size: 25px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .userchannel_nav {
+                margin-top: 40px;
+                padding: 15px;
+
+                ul {
+                    padding-left: 0;
+                    margin-left: 0;
+                    text-align: center;
+
+                    li {
+                        display: inline-block;
+                        margin: 0 3%;
+
+                        span {
+                            padding: 10px;
+                            cursor: pointer;
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }
+        }
+
+        @include screen-size(640px) {
+            .userchannel_nav {
+                display: none;
+            }
+
+            .userchannel_nav_mini {
+                display: block;
+                margin-top: 40px;
+                padding: 15px;
+                text-align: center;
+            }
+        }
+
+        @include screen-size(500px) {
+            .userchannel_nav_mini {
+                .dropdown-toggle {
+                    font-size: 14px;
+                }
+            }
+        }
+
+        //Style for Ajax Pages form App/Views/channels/userchannel dir.
+        @import 'userchannel/userwall';
+        @import 'userchannel/uservideos';
+    }
+}

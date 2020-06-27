@@ -73,7 +73,7 @@
 			$(".filename").text(filename);
 
 			if (!video_extensions(file_ext)) {
-			$(".err").text(filename + " is not a video format.");
+				$(".err").text(filename + " is not a video format.");
 			} else {
 				$(".err").html("&nbsp;");
 
@@ -127,12 +127,14 @@
 				tags: tags
 			};
 
+			$(".save_notification").show();
+
+			setTimeout(() => {
+				$(".save_notification").fadeOut();
+			}, 5000);
+
 			$.post("/upload/details", data, function(r) {
 				if (r == "ok") {
-					$(".save_notification").show();
-					setTimeout(() => {
-						$(".save_notification").fadeOut();
-					}, 5000);
 					resolve();
 				}
 			});
@@ -140,7 +142,17 @@
 	});
 
 	Promise.all([upload_video, video_details]).then((data) => {
-		location = "/watch/" + slug;
+
+		var data = {
+			"<?= csrf_token() ?>": "<?= csrf_hash() ?>",
+			notification_type: "video_upload",
+			slug: slug
+		};
+
+		//Create Notification to user's subscribers.
+		$.post("/notifications/create", data, () => {
+			location = "/watch/" + slug;
+		});
 	});
 
 	function slug(length) {
@@ -193,8 +205,6 @@
 							$(".convert_progress .progress_bar").css("width", "100%");
 							$(".convert_progress .percent").text("100%");
 						} else {
-							
-
 							$(".convert_progress .progress_bar").css("width", progress + "%");
 							$(".convert_progress .percent").text(progress + "%");
 						}

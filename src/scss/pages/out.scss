@@ -1,0 +1,29 @@
+//Style for out page.
+//View path /Views/users/out.php
+
+.out_page {
+    margin-top: 54px;
+
+    .contents {
+        background-color: map-get($defaultContainer, bgColor);
+        text-align: center;
+
+        .warning {
+            position: relative;
+            top: 20%;
+
+            .img {
+                img {
+                    width: 250px;
+                    height: 250px;
+                }
+            }
+
+            .msg {
+                color: $error;
+                font-size: 18px;
+                font-weight: bold;
+            }
+        }
+    }
+}

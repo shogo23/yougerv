@@ -15,7 +15,7 @@
 		<div class="contents">
 			<div class="video">
 				<video id="player" height="400" playsinline controls data-poster="/vids/thumbs/<?= $data['slug'] ?>.jpg">
-					<source src="/vids/outputs/<?= $data['filename'] ?>" type="video/mp4" />
+					<source src="/videostream/<?= $data['filename'] ?>?key=<?= $secure_video_key ?>" type="video/mp4" />
 				</video>
 				<div class="clear"></div>
 				<div class="details">
@@ -23,8 +23,10 @@
 					<div class="upper_details">
 						<div class="uploader">
 							<ul>
-								<li><a href="#"><img src="<?= $assets->get_thumbnail($data['user_id']) ?>" /></a></li>
-								<li>Uploded by: <a href="#"><?= $data['firstname'] . ' ' . $data['lastname'] ?></a></li>
+								<li>
+									<a href="/channel/<?= $data['user_id'] . '/' . $data['firstname'] . '_' . $data['lastname'] ?>"><img src="<?= $assets->get_thumbnail($data['user_id']) ?>" /></a>
+								</li>
+								<li>Uploded by: <a href="/channel/<?= $data['user_id'] . '/' . $data['firstname'] . '_' . $data['lastname'] ?>"><?= $data['firstname'] . ' ' . $data['lastname'] ?></a></li>
 							</ul>
 						</div>
 						<div class="stats">
@@ -88,7 +90,9 @@
 							<div class="length"><?= $video['length'] ?></div>
 						</div>
 						<div class="title"><a href="/watch/<?= $video['slug'] ?>" title="<?= $video['title'] ?>"><?= $assets->reduce_title($video['title']) ?></a></div>
-						<div class="uploader"><?= $video['firstname'] . ' ' . $video['lastname'] ?></div>
+						<div class="uploader">
+							<a href="/channel/<?= $video['user_id'] . '/' . $video['firstname'] . '_' . $video['lastname'] ?>"><?= $video['firstname'] . ' ' . $video['lastname'] ?></a>
+						</div>
 						<div class="uploaded_date"><?= $assets->when($video['created_at']) ?></div>
 						<div class="clear"></div>
 					</li>
@@ -124,20 +128,15 @@
 
 <script>
 	var page = 50;
+	var elm = document.querySelector(".desc");
 
-	new Plyr('#player');
+	new Plyr('#player', {autoplay: false});
 
 	load_comments();
 
+	<?= $assets->hasSession() ? 'stretchTextarea("#comment");' : ''; ?>
+
 	$("#comment").on("keyup change input", () => {
-		var comment = document.getElementById("comment");
-		
-		setTimeout(function() {
-			$("#comment").css("height", "auto");
-
-			$("#comment").css("height", comment.scrollHeight + "px");
-		}, 0);
-
 		if ($("#comment").val().length > 0) {
 			$(".btns").show();
 		} else {
@@ -167,8 +166,19 @@
 
 		$.post("/comments/postcomment", data, r => {
 			if (r == "ok") {
-				_cancel();
-				load_comments();
+				var data = {
+					"<?= csrf_token() ?>": "<?= csrf_hash() ?>",
+					video_user_id: <?= $user_id ?>,
+					comentor_id: <?= $assets->getUserId($assets->getSession('username')) ?>,
+					notification_type: "video_comment",
+					slug: "<?= $data['slug'] ?>",
+				};
+
+				//Send notification.
+				$.post("/notifications/create", data, () => {
+					_cancel();
+					load_comments();
+				});
 			}
 		});
 	})
@@ -199,6 +209,13 @@
 			}
 		});
 	});
+
+	elm.addEventListener("click", function(e) {
+        if (e.srcElement.localName == "a") {
+            e.preventDefault();
+            location = "/out?redirect=" + e.target.href;
+        }
+    });
 
 	function _cancel() {
 		$("#comment").val("");

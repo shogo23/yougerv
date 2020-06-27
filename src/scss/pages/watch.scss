@@ -1,6 +1,11 @@
 //Style for upload page.
 //View path /Views/channels/watch.php
 
+//Custom Plyr Style.
+:root {
+    --plyr-color-main: rgb(235, 47, 47);
+    --plyr-progress-loading-background: rgb(235, 47, 47);
+}
 
 .watch_container {
     margin-top: 54px;
@@ -84,6 +89,10 @@
                 .desc {
                     margin-top: 20px;
                     word-break: break-all;
+
+                    a {
+                        color: $defaultColor;
+                    }
                 }
 
                 .comments {
@@ -259,6 +268,12 @@
                             color: $defaultColor;
                         }
                     }
+
+                    .uploader {
+                        a {
+                            color: $defaultColor;
+                        }
+                    }
                 }
             }
         }
@@ -385,6 +400,41 @@
                     }
                 }
             }
+        }
+    }
+
+    .notfound {
+        width: 60%;
+        text-align: center;
+        margin: 0 auto;
+        position: relative;
+        top: 18%;
+
+        .img {
+            img {
+                width: 300px;
+                height: 300px;
+            }
+
+            @include screen-size(520px) {
+                img {
+                    width: 220px;
+                    height: 220px;
+                }
+            }
+
+            @include screen-size(380px) {
+                img {
+                    width: 150px;
+                    height: 150px;
+                }
+            }
+        }
+
+        .msg {
+            color: $error;
+            font-size: 18px;
+            font-weight: bold;
         }
     }
 }

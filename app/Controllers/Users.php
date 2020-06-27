@@ -5,12 +5,23 @@ use App\Models\UsersModel;
 class Users extends BaseController
 {
 
+	//Users Model Property Global.
+	private $users;
+
+	public function __construct()
+	{
+		parent::__construct();
+
+		//Load UsersModel.
+		$this->users = new UsersModel();
+	}
+
 	public function login()
 	{
 		if (! $this->Assets->hasSession())
 		{
 			$data = [
-				'title'      => 'Login - CI4',
+				'title'      => 'Login' . $this->web_title,
 				'validation' => null,
 			];
 
@@ -63,17 +74,14 @@ class Users extends BaseController
 		}
 		else
 		{
-			//Load Model.
-			$users = new UsersModel();
-
 			//Update last login.
-			$users->_update_last_login($this->request->getPostGet('username'), $this->Assets->getDateTime());
+			$this->users->_update_last_login($this->request->getPostGet('username'), $this->Assets->getDateTime());
 
 			//Session Data.
 			$data = [];
 
 			//Get User's Data.
-			foreach ($users->_getUserData($this->request->getPostGet('username')) as $user)
+			foreach ($this->users->_getUserData($this->request->getPostGet('username')) as $user)
 			{
 				$data['username']  = $user->username;
 				$data['firstname'] = $user->firstname;
@@ -105,7 +113,7 @@ class Users extends BaseController
 		if (! $this->Assets->hasSession())
 		{
 			$data = [
-				'title'      => 'Register - CI4',
+				'title'      => 'Register' . $this->web_title,
 				'request'    => null,
 				'validation' => null,
 			];
@@ -207,9 +215,7 @@ class Users extends BaseController
 				'nickname'  => $this->request->getPostGet('nickname'),
 			];
 
-			$user = new UsersModel();
-
-			if ($user->_insert($entries))
+			if ($this->users->_insert($entries))
 			{
 				$sess_data = [
 					'username'  => $this->request->getPostGet('username'),
@@ -230,7 +236,7 @@ class Users extends BaseController
 		if ($this->Assets->hasSession())
 		{
 			$data = [
-				'title' => 'Set Picture - CI4',
+				'title' => 'Set Picture' . $this->web_title,
 			];
 
 			return view('users/setpicture', $data);
@@ -271,6 +277,112 @@ class Users extends BaseController
 			if ($this->Assets->deletePictures($user_id))
 			{
 				echo 'ok';
+			}
+		}
+	}
+
+	public function accountsettings()
+	{
+		if ($this->Assets->hasSession())
+		{
+			$data = [
+				'title' => 'Account Settings' . $this->web_title,
+				'fullname' => $this->Assets->get_fullname(),
+				'nickname' => $this->Assets->get_nickname(),
+			];
+
+			return view('users/accountsettings', $data);
+		}
+		else 
+		{
+			return redirect()->to('/');
+		}
+	}
+
+	public function fullnamesave()
+	{
+		if ($this->request->isAjax() && $this->Assets->hasSession())
+		{
+			//User's ID.
+			$user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
+
+			//Post requests.
+			$firstname = $this->request->getPostGet('firstname');
+			$lastname = $this->request->getPostGet('lastname');
+
+			//Firstname and Lastname length should not exceed 12 characters or more.
+			if (strlen($firstname) <= 12 && strlen($lastname) <= 12)
+			{
+				if ($this->users->save_fullname($user_id, $firstname, $lastname))
+				{
+					echo 'ok';
+				}
+			}
+		}
+	}
+
+	public function nicknamesave()
+	{
+		if ($this->request->isAjax() && $this->Assets->hasSession())
+		{
+			//User's ID.
+			$user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
+
+			//Post request data.
+			$nickname = $this->request->getPostGet('nickname');
+
+			//Nickmame length should not exceed to 12 characters.
+			if (strlen($nickname) <= 12)
+			{
+				if ($this->users->save_nickname($user_id, $nickname))
+				{
+					echo 'ok';
+				}
+			}
+		}
+	}
+
+	public function passwordcheck()
+	{
+		if ($this->request->isAjax() && $this->Assets->hasSession())
+		{
+			//User's ID.
+			$user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
+
+			//Post request data.
+			$password = $this->request->getPostGet('password');
+
+			//Current user's hashed password.
+			$hash_password = $this->users->get_hashed_password($user_id);
+
+			if (password_verify($password, $hash_password))
+			{
+				echo (int) 1;
+			}
+			else 
+			{
+				echo (int) 0;
+			}
+		}
+	}
+
+	public function passwordsave()
+	{
+		if ($this->request->isAjax() && $this->Assets->hasSession())
+		{
+			//User's ID.
+			$user_id = $this->Assets->getUserId($this->Assets->getSession('username'));
+
+			//Post request data.
+			$password = $this->request->getPostGet('password');
+
+			//Password length should be 6 characters or more.
+			if (strlen($password) >= 6) 
+			{
+				if ($this->users->update_password($user_id, $password))
+				{
+					echo 'ok';
+				}
 			}
 		}
 	}

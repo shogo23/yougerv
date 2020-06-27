@@ -34,7 +34,16 @@
 	</ul>
 
 	<script>
+		var elm = document.querySelector(".comment_contents ul");
+
 		checkResults();
+
+		elm.addEventListener("click", function(e) {
+			if (e.srcElement.localName == "a") {
+				e.preventDefault();
+				location = "/out?redirect=" + e.target.href;
+			}
+		});
 
 		function checkResults() {
 			var total_results = <?= $total_comments ?>;

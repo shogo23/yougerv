@@ -27,11 +27,26 @@
             }
         }
 
+        .logo_container2 {
+            width: 10%;
+            float: left;
+            text-align: center;
+            font-family: map-get($siteLogo, font);
+            font-size: map-get($siteLogo, size);
+            position: relative;
+            top: 5px;
+
+            a {
+                color: map-get($siteLogoLink, color);
+                text-decoration: map-get($siteLogoLink, decoration);
+            }
+        }
+
         .search_container {
             width: 60%;
             float: left;
             position: relative;
-            top: 3px;
+            top: 5px;
             
             .text_input {
                 border: 1px solid map-get($searhNav, colors);
@@ -106,6 +121,8 @@
             }
 
             ul {
+                padding-left: 0;
+                margin-left: 0;
                 
                 li {
                     display: inline-block;
@@ -115,6 +132,35 @@
                     margin-top: -4px;
                     top: 2px;
                     text-align: center;
+
+                    .bell {
+                        font-size: 20px;
+                        position: relative;
+                        top: 3px;
+                        cursor: pointer;
+                    }
+
+                    .noti_num1 {
+                        font-size: 9px;
+                        border-radius: 5px;
+                        padding: 2px 5px;
+                        background-color: red;
+                        position: absolute;
+                        margin-top: 0px;
+                        margin-left: -8px;
+                        display: none;
+                    }
+
+                    .noti_num2 {
+                        font-size: 9px;
+                        border-radius: 5px;
+                        padding: 2px 5px;
+                        background-color: red;
+                        position: absolute;
+                        margin-top: 0px;
+                        margin-left: -8px;
+                        display: none;
+                    }
     
                     img {
                         border-radius: 50%;
@@ -160,7 +206,7 @@
         }
 
         @include screen-size(803px) {
-            .logo_container {
+            .logo_container, .logo_container2 {
                 width: 20%;
                 text-align: left;
             }
@@ -245,7 +291,7 @@
         padding: 5px;
 
         .top {
-            border-bottom: 1px solid $dividerColor;
+            border-bottom: 1px solid $lightDividerColor;
 
             ul li {
                 display: inline-block;
@@ -344,5 +390,83 @@
                 margin-left: 10px;
             }
         }
+    }
+}
+
+.user_notifications {
+    border: 1px solid map-get($notification, borderColor);
+    background-color: map-get($notification, bgColor);
+    position: fixed;
+    right: 0;
+    z-index: 20;
+    margin-top: 2px;
+    width: 300px;
+    overflow-y: none;
+    display: none;
+
+    .notification_list {
+        overflow-y: auto;
+        padding: 5px;
+
+       ul {
+            margin-left: 0;
+            padding-left: 0;
+
+            li {
+                list-style: none;
+                margin-bottom: 5px;
+                padding: 5px;
+
+                a {
+                    color: $defaultColor;
+
+                    .thumb {
+                        width: 20%;
+                        float: left;
+    
+                        img {
+                           border-radius: 50%;
+                           width: 50px;
+                           height: 50px;
+                        }
+                    }
+    
+                    .info {
+                        background-color: map-get($notification, bgColortab);
+                        border-radius: 5px;
+                        width: 80%;
+                        float: left;
+    
+                        .message {
+                            padding: 5px;
+                        }
+    
+                        .date {
+                            padding: 5px;
+                            font-size: 13px;
+                        }
+                    }
+                }
+            }
+       }
+    }
+
+    .btn_container {
+        text-align: center;
+        padding: 10px;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+@include screen-size(800px) {
+    .user_notifications {
+        margin-top: 5px;
+    }
+}
+
+@include screen-size(400px) {
+    .user_notifications {
+        width: 270px;
     }
 }

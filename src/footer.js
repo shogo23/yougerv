@@ -1,7 +1,12 @@
-var body = document.querySelector("body");
+//|| document.querySelector(".watch_container .details .desc");
 
-body.addEventListener("click", function(e) {
-    if (e.srcElement.localName == "a") {
-        e.preventDefault();
-    }
-});
+var elm = document.querySelector("ul");
+
+if (elm !== null) {
+    elm.addEventListener("click", function(e) {
+        if (e.srcElement.localName == "a") {
+            e.preventDefault();
+            location = "/out?redirect=" + e.target.href;
+        }
+    });
+}

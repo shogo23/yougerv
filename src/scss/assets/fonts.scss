@@ -1,4 +1,20 @@
-/*Fonts*/
+//Fonts
+
+@font-face {
+    font-family: Anton;
+    src: url(scss/fonts/Anton-Regular.ttf);
+}
+
+@font-face {
+    font-family: Unica One;
+    src: url(scss/fonts/UnicaOne-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Saira';
+    src: url(scss/fonts/Saira-Light.ttf);
+}
+
 $defaultFont: 'Saira', sans-serif;
 
 $siteLogo: (

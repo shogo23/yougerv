@@ -22,6 +22,8 @@ class ChannelsModel extends Model
 		'converted',
 	];
 
+	private $per_page = 10;
+
 	public function is_record_exists($slug)
 	{
 		$videos = $this->where('slug', $slug)
@@ -114,7 +116,7 @@ class ChannelsModel extends Model
 		return false;
 	}
 
-	public function get_video($slug)
+	public function get_video_info($slug)
 	{
 		$videos = $this->select([
 			'users.firstname',
@@ -160,6 +162,7 @@ class ChannelsModel extends Model
 		return $this->select([
 			'users.firstname',
 			'users.lastname',
+			'videos.user_id',
 			'videos.slug',
 			'videos.title',
 			'videos.length',
@@ -219,5 +222,198 @@ class ChannelsModel extends Model
 				->update();
 
 		return $likes;
+	}
+
+	public function pagination_visibility($keywords = null)
+	{
+		
+		if (!$keywords)
+		{
+			$videos_count = $this->where('converted', 1)
+						  ->countAllResults();
+						  
+			if ($this->per_page >= $videos_count)
+			{
+				return false;
+			}
+
+		} 
+		else 
+		{
+			$keywords = explode(' ', $keywords);
+
+			$videos = $this->join('users', 'users.id = videos.user_id', 'LEFT');
+			$videos->where('videos.converted', 1);
+			$i = 0;
+
+			foreach ($keywords as $keyword)
+			{
+				$i++;
+
+				if ($i == 1)
+				{
+					$videos->like('videos.title', $keyword);
+					$videos->orLike('videos.tags', $keyword);
+				}
+				else
+				{
+					$videos->orLike('videos.title', $keyword);
+					$videos->orLike('videos.tags', $keyword);
+				}
+			}
+
+			if ($this->per_page >= $videos->countAllResults())
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public function homepage_videos()
+	{
+		return $this->select([
+			'users.id AS user_id',
+			'users.firstname',
+			'users.lastname',
+			'videos.slug',
+			'videos.title',
+			'videos.length',
+			'videos.created_at'
+		])
+		->join('users', 'users.id = videos.user_id', 'left')
+		->where('videos.converted', 1)
+		->orderBy('videos.created_at', 'DESC')
+		->paginate($this->per_page, 'video');
+	}
+
+	public function mychannel_videos($user_id)
+	{
+		return $this->select(['id', 'slug', 'title', 'length', 'created_at'])
+					->where('user_id', $user_id)
+					->where('converted', 1)
+					->orderBy('created_at', 'DESC')
+					->limit(10, 0)
+					->find();
+	}
+
+	public function load_more_videos($user_id, $offset)
+	{
+		return $this->select(['id', 'slug', 'title', 'length', 'created_at'])
+					->where('user_id', $user_id)
+					->where('converted', 1)
+					->orderBy('created_at', 'DESC')
+					->limit(10, $offset)
+					->find();
+	}
+
+	public function get_video_details($video_id)
+	{
+		return $this->select(['slug', 'title', 'description', 'tags', 'filename'])
+					->where('id', $video_id)
+					->where('converted', 1)
+					->find();
+	}
+
+	public function update_video_details($data, $video_id)
+	{
+		$this->where('id', $video_id)
+				->set($data)
+				->update();
+
+		return true;
+	}
+
+	public function delete_video($video_id)
+	{
+		$this->where('id', $video_id)
+			 ->delete();
+
+		return true;
+	}
+
+	public function get_video($slug)
+	{
+		$videos = $this->select('filename')
+					   ->where('slug', $slug)
+					   ->find();
+
+		$filename = '';
+
+		foreach ($videos as $video)
+		{
+			$filename = $video['filename'];
+		}
+
+		return $filename;
+	}
+
+	public function get_video_title($slug)
+	{
+		return $this->select('title')
+					 ->where('slug', $slug)
+					 ->find();
+
+	}
+
+	public function get_subscribed_videos($user_id)
+	{
+		return $this->select([
+				'users.id AS user_id',
+				'users.firstname',
+				'users.lastname',
+				'videos.slug',
+				'videos.title',
+				'videos.length',
+				'videos.created_at'
+			])
+			->join('users', 'users.id = videos.user_id')
+			->where('videos.user_id', $user_id)
+			->where('videos.converted', 1)
+			->orderBy('created_at', 'DESC')
+			->limit(4)
+			->find();
+	}
+
+	public function search_videos($keywords)
+	{
+		$keywords = explode(' ', $keywords);
+
+		$videos = $this->select([
+					'users.firstname',
+					'users.lastname',
+					'videos.user_id',
+					'videos.title',
+					'videos.slug',
+					'videos.tags',
+					'videos.length',
+					'videos.created_at',
+				]);
+		
+		$videos->join('users', 'users.id = videos.user_id', 'LEFT');
+		$i = 0;
+
+		$videos->where('converted', 1);
+
+		foreach ($keywords as $keyword)
+		{
+			$i++;
+
+			if ($i == 1)
+			{
+				$videos->like('videos.title', $keyword);
+				$videos->orLike('videos.tags', $keyword);
+			}
+			else
+			{
+				$videos->orLike('videos.title', $keyword);
+				$videos->orLike('videos.tags', $keyword);
+			}
+		}
+
+		$videos->orderBy('videos.created_at', 'DESC');
+
+		return $videos->paginate($this->per_page, 'video');
 	}
 }

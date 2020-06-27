@@ -16,9 +16,15 @@ $success: rgb(8, 175, 8);
 //Hover color.
 $hoverColor: yellow;
 
+$mychannelmenuselectorcolor: #eb2f2f;
+
 $thumbnailBorderColor: #fff;
 
-$dividerColor: rgb(221, 219, 219);
+$dividerColor: rgb(235, 47, 47);
+
+$lightDividerColor: #ccc;
+
+$newpostmsgcolor: rgb(235, 47, 47);
 
 $video_length_color: (
     fontColor: #fff,
@@ -28,7 +34,7 @@ $video_length_color: (
 //Main Navigation Color.
 $main_nav: (
     borderColor: rgb(112, 45, 45),
-    bgColor: rgb(235, 47, 47),
+    bgColor: #eb2f2f,
     fontColor: #fff
 );
 
@@ -58,4 +64,29 @@ $progressBarColor: (
     bgColor: rgb(245, 122, 122),
     fontColor: #fff,
     progressColor: rgb(235, 47, 47)
+);
+
+$paginationColor: (
+    borderColor: rgb(112, 45, 45),
+    bgColor: rgb(235, 47, 47),
+    fontColor: #fff
+);
+
+$blackscreenColor: rgba(0, 0, 0, 0.6);
+
+$ajaxScreenColor: (
+    borderColor: rgb(148, 7, 7),
+    bgColor: #fff
+);
+
+$unparrovedColor: (
+    borderColor: rgb(148, 7, 7),
+    bgColor: rgb(248, 229, 229)
+);
+
+$notification: (
+    borderColor: rgb(112, 45, 45),
+    bgColor: #fff,
+    fontColor: $defaultColor,
+    bgColortab: rgb(250, 237, 237)
 );

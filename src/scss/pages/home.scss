@@ -1,1 +1,361 @@
 /* Home Page Style */
+
+.home_contents {
+    margin-top: 54px;
+
+    .contents {
+        padding: 20px;
+        background-color: map-get($defaultContainer, bgColor);
+
+        h1 {
+            border-bottom: 2px solid $dividerColor;
+            padding-bottom: 10px;
+        }
+
+        @include screen-size(800px) {
+            h1 {
+                font-size: 28px;
+            }
+        }
+
+        @include screen-size(550px) {
+            h1 {
+                font-size: 24px;
+            }
+        }
+        
+        .subscription_videos {
+            margin-bottom: 50px;
+
+            ul {
+                padding-left: 0;
+                margin-left: 0;
+                text-align: center;
+
+                li {
+                    width: 250px;
+                    border-radius: 5px;
+                    display: inline-block;
+                    margin: 10px 1%;
+                    padding: 10px;
+                    text-align: left;
+
+                    .thumb {
+
+                        img {
+                            width: 100%;
+                            height: 200px;
+                            border-radius: 5px;
+                        }
+
+                        .length {
+                            position: absolute;
+                            margin-top: -19px;
+                            background-color: map-get($video_length_color, bgColor);
+                            font-size: 13px;
+                            color: map-get($video_length_color, fontColor);
+                        }
+                    }
+
+                    .details {
+                        .title {
+                            font-weight: bold;
+
+                            a {
+                                color: $defaultColor;
+                            }
+                        }
+
+                        .uploader {
+                            font-size: 14px;
+
+                            a {
+                                color: $defaultColor;
+                            }
+                        }
+
+                        .date {
+                            font-size: 14px;
+                        }
+                    }
+
+                    @include screen-size(1150px) {
+                        li {
+                            width: 200px;
+    
+                            .thumb {
+    
+                                img {
+                                    width: 100%;
+                                    height: 150px;
+                                }
+                            }
+                        }
+                    }
+    
+                    @include screen-size(930px) {
+                        li {
+                            width: 250px;
+    
+                            .thumb {
+    
+                                img {
+                                    width: 100%;
+                                    height: 200px;
+                                }
+                            }
+                        }
+                    }
+    
+                    @include screen-size(850px) {
+                        li {
+                            width: 300px;
+    
+                            .thumb {
+    
+                                img {
+                                    width: 100%;
+                                    height: 250px;
+                                }
+                            }
+                        }
+                    }
+    
+                    @include screen-size(680px) {
+                        li {
+                            width: 250px;
+    
+                            .thumb {
+    
+                                img {
+                                    width: 100%;
+                                    height: 200px;
+                                }
+                            }
+                        }
+                    }
+    
+                    @include screen-size(570px) {
+                        li {
+                            width: 100%;
+    
+                            .thumb {
+    
+                                img {
+                                    width: 100%;
+                                    height: auto;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .videos {
+            ul {
+                padding-left: 0;
+                margin-left: 0;
+                text-align: center;
+
+                li {
+                    width: 250px;
+                    border-radius: 5px;
+                    display: inline-block;
+                    margin: 10px 1%;
+                    padding: 10px;
+                    text-align: left;
+
+                    .thumb {
+
+                        img {
+                            width: 100%;
+                            height: 200px;
+                            border-radius: 5px;
+                        }
+
+                        .length {
+                            position: absolute;
+                            margin-top: -19px;
+                            background-color: map-get($video_length_color, bgColor);
+                            font-size: 13px;
+                            color: map-get($video_length_color, fontColor);
+                        }
+                    }
+
+                    .details {
+                        .title {
+                            font-weight: bold;
+
+                            a {
+                                color: $defaultColor;
+                            }
+                        }
+
+                        .uploader {
+                            font-size: 14px;
+
+                            a {
+                                color: $defaultColor;
+                            }
+                        }
+
+                        .date {
+                            font-size: 14px;
+                        }
+                    }
+                }
+
+                @include screen-size(1150px) {
+                    li {
+                        width: 200px;
+
+                        .thumb {
+
+                            img {
+                                width: 100%;
+                                height: 150px;
+                            }
+                        }
+                    }
+                }
+
+                @include screen-size(930px) {
+                    li {
+                        width: 250px;
+
+                        .thumb {
+
+                            img {
+                                width: 100%;
+                                height: 200px;
+                            }
+                        }
+                    }
+                }
+
+                @include screen-size(850px) {
+                    li {
+                        width: 300px;
+
+                        .thumb {
+
+                            img {
+                                width: 100%;
+                                height: 250px;
+                            }
+                        }
+                    }
+                }
+
+                @include screen-size(680px) {
+                    li {
+                        width: 250px;
+
+                        .thumb {
+
+                            img {
+                                width: 100%;
+                                height: 200px;
+                            }
+                        }
+                    }
+                }
+
+                @include screen-size(570px) {
+                    li {
+                        width: 100%;
+
+                        .thumb {
+
+                            img {
+                                width: 100%;
+                                height: auto;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .mini_pagination {
+            display: none;
+        }
+
+        .pagination {
+            margin-top: 40px;
+            text-align: center;
+            
+            ul {
+                padding-left: 0;
+                margin-left: 0;
+                margin: 0 auto;
+
+                li {
+                    display: inline-block;
+                    margin: 0 5px;
+
+                    a {
+                        color: map-get($paginationColor, fontColor);
+                        padding: 5px 13px;
+                        border: 1px solid map-get($paginationColor, borderColor);
+                        background-color: map-get($paginationColor, bgColor);
+                        text-decoration: none;
+                        transition: background-color 1s;
+                    }
+
+                    a.active {
+                        background-color: $hoverColor;
+                    }
+
+                    a:hover {
+                        background-color: $hoverColor;
+                    }
+                }
+            }
+        }
+
+        @include screen-size(500px) {
+            .pagination {
+                display: none;
+            }
+
+            .mini_pagination {
+                display: block;
+
+                ul {
+                    padding-left: 0;
+                    margin-left: 0;
+                    text-align: center;
+
+                    li {
+                        display: inline-block;
+                        margin: 0 3px;
+
+                        a {
+                            color: map-get($paginationColor, fontColor);
+                            padding: 5px 13px;
+                            border: 1px solid map-get($paginationColor, borderColor);
+                            background-color: map-get($paginationColor, bgColor);
+                            text-decoration: none;
+                            transition: background-color 1s;
+                        }
+    
+                        a.active {
+                            background-color: $hoverColor;
+                        }
+    
+                        a:hover {
+                            background-color: $hoverColor;
+                        }
+
+                        #paginate {
+                            border: 1px solid map-get($paginationColor, borderColor);
+                            padding: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

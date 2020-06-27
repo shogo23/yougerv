@@ -1,0 +1,193 @@
+.userwall {
+    background-color: map-get($defaultContainer, bgColor);
+
+    .contents {
+        padding: 30px;
+
+        .form {
+            .field {
+                label {
+                    display: block;
+                }
+
+                textarea#post {
+                    border: 2px solid map-get($forms, borderColor);
+                    width: 100%;
+                    padding: 5px;
+                    resize: none;
+                    height: 100px;
+                    outline: none;
+                    overflow: hidden;
+                    border-radius: 5px;
+                }
+            }
+        }
+
+        .flash_msg {
+            text-align: center;
+            padding: 20px;
+            margin: 10px;
+            display: none;
+        }
+
+        .userwall_posts {
+            margin-top: 30px;
+
+            .user_no_post {
+                text-align: center;
+            }
+
+            ul {
+                margin-left: 5px;
+                padding-left: 0px;
+
+                li {
+                    display: block;
+                    margin-bottom: 20px;
+
+                    .thumb {
+                        width: 8%;
+                        float: left;
+                        text-align: right;
+
+                        img {
+                            width: 50px;
+                            height: 50px;
+                            margin-right: 10px;
+                            border-radius: 50%;
+                        }
+                    }
+
+                    .post_contents {
+                        border: 2px solid map-get($defaultContainer, borderColor);
+                        width: 92%;
+                        float: left;
+                        border-radius: 5px;
+
+                        .opt_mini {
+                            display: none;
+                        }
+
+                        .opt {
+                            float: right;
+                            margin-right: 10px;
+                            margin-top: 5px;
+                            font-size: 13px;
+
+                            span {
+                                cursor: pointer;
+                            }
+
+                            span:hover {
+                                text-decoration: underline;
+                            }
+                        }
+
+                        .fullname {
+                            a {
+                                color: $defaultColor;
+                                line-height: 20px;
+                                font-weight: bold;
+                                padding: 0 5px;
+                                font-size: 16px;
+                            }
+                        }
+
+                        .date {
+                            font-size: 13px;
+                            padding: 0 5px;
+                        }
+
+                        .new_post_msg {
+                            float: right;
+                            font-size: 13px;
+                            margin-right: 10px;
+                            margin-top: -15px;
+                            color: $newpostmsgcolor;
+                        }
+
+                        .post {
+                            padding: 0 5px;
+                            margin-top: 10px;
+
+                            a {
+                                color: $defaultColor;
+                                text-decoration: underline;
+                            }
+                        }
+
+                        .edit_container {
+                            padding: 5px;
+                            display: none;
+
+                            .update_post {
+                                border: 2px solid map-get($forms, borderColor);
+                                width: 100%;
+                                padding: 5px;
+                                resize: none;
+                                outline: none;
+                                overflow: hidden;
+                                border-radius: 5px;
+                            }
+
+                            .btn_container {
+                                button:first-child {
+                                    margin-right: 5px;
+                                }
+                            }
+                        }
+
+                        @include screen-size(600px) {
+                            .opt {
+                                display: none;
+                            }
+    
+                            .opt_mini {
+                                display: block;
+                                margin: 5px 0;
+                                padding: 0 5px;
+
+                                span {
+                                    cursor: pointer;
+                                    font-size: 13px;
+                                }
+    
+                                span:hover {
+                                    text-decoration: underline;
+                                }
+                            }
+
+                            .new_post_msg {
+                                float: none;
+                                width: 100%;
+                                margin: 5px;
+                            }
+                        }
+                    }
+
+                    @include screen-size(750px) {
+                        .thumb {
+                            width: 15%;
+                        }
+
+                        .post_contents {
+                            width: 85%;
+                        }
+                    }
+
+                    @include screen-size(450px) {
+                        .thumb {
+                            width: 15%;
+                            display: none;
+                        }
+
+                        .post_contents {
+                            width: 100%;
+                            float: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,49 @@
+//Style for 'App/View/channels/mychannel/editvideodetails'
+
+.video_details {
+    padding: 10px;
+    
+    .contents {
+        h1 {
+            border-bottom: 1px solid $lightDividerColor;
+            padding-bottom: 10px;
+        }
+
+        .fields {
+            margin-top: 20px;
+            padding: 10px;
+
+            .field {
+                margin-bottom: 10px;
+
+                label {
+                    display: block;
+                }
+
+                [type=text], textarea {
+                    padding: 5px;
+                    width: 100%;
+                    outline: none;
+                }
+
+                textarea {
+                    height: 300px;
+                    resize: none;
+                }
+
+                #tags {
+                    width: 100%;
+                }
+            }
+
+            .btn_container {
+                text-align: center;
+            }
+
+            .ajax_loader {
+                text-align: center;
+                display: none;
+            }
+        }
+    }
+}

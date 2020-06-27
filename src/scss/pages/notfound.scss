@@ -1,0 +1,41 @@
+//Style for out page.
+//View path /Views/home/noutfound.php
+
+.notfound {
+    margin-top: 55px;
+
+    .contents {
+        background-color: map-get($defaultContainer, bgColor);
+        padding: 10px;
+
+        .img {
+            text-align: center;
+            margin-top: 5%;
+
+            @include screen-size(500px) {
+                img {
+                    width: 350px;
+                }
+            }
+
+            @include screen-size(400px) {
+                img {
+                    width: 250px;
+                }
+            }
+
+            @include screen-size(300px) {
+                img {
+                    width: 200px;
+                }
+            }
+        }
+
+        .msg {
+            text-align: center;
+            color: $error;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    }
+}

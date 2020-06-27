@@ -10,6 +10,11 @@ class User extends Entity {
 		return $this;
 	}
 
+	public function hashPassword(string $pass)
+	{
+		return password_hash($pass, PASSWORD_BCRYPT);
+	}
+
 	public function setCreatedAt(string $dateString)
 	{
 		$this->attributes['created_at'] = new Time($dateString, 'UTC');
