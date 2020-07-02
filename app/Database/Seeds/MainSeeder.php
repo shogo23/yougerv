@@ -7,5 +7,8 @@ class MainSeeder extends \CodeIgniter\Database\Seeder
 		$this->call('UsersSeeder');
 		$this->call('VideoSeeder');
 		$this->call('CommentSeeder');
+		$this->call('WallsSeeder');
+		$this->call('SubscriptionsSeeder');
+		$this->call('NotificationsSeeder');
 	}
 }

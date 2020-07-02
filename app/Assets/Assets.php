@@ -171,7 +171,7 @@ class Assets extends AssetsBase
 		//Get User's Picture filename.
 		$builder = $this->db->table('users');
 		$builder->select('picture');
-		$builder->where('id', $user_id);
+		$builder->where('id', $this->getUserId($this->getSession('username')));
 		$query   = $builder->get();
 		$picture = '';
 

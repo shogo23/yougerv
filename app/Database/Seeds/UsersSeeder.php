@@ -8,7 +8,7 @@ class UsersSeeder extends \Codeigniter\Database\Seeder
 			[
 				'id'         => 1,
 				'username'   => 'gervic23',
-				'password'   => '$2y$10$0WYeQPZ.XJOEus.1YCaDXO/.R82/Z93QzXtNuZrWgIX8pcBUuVWcy',
+				'password'   => '$2y$10$29WP6Q3//DclFjpHw2gSTO9mJqmrjNjRHVT8rsxDnYzLVLY0o.e0K',
 				'firstname'  => 'Victor',
 				'lastname'   => 'Caviteno',
 				'nickname'   => 'Gervic',
@@ -21,7 +21,7 @@ class UsersSeeder extends \Codeigniter\Database\Seeder
 			[
 				'id'         => 2,
 				'username'   => 'serah23',
-				'password'   => '$2y$10$xhHHZYCNN2qVfJCAWok4auGThV1aVYo07blXmjaSBcp7t259QMnli',
+				'password'   => '$2y$10$YAkL6R4QCS8t66iNT2sST.RlMAnbzlnZWC9DyZYSbGjzOnO72WjTu',
 				'firstname'  => 'Serah',
 				'lastname'   => 'Farron',
 				'nickname'   => 'Serah',
@@ -38,7 +38,7 @@ class UsersSeeder extends \Codeigniter\Database\Seeder
 				'firstname'  => 'Claire',
 				'lastname'   => 'Farron',
 				'nickname'   => 'Lightning',
-				'picture'    => 'ede54231559bcb2494f3.jpg',
+				'picture'    => 'b912d544789d461eb270.jpg',
 				'created_at' => '2020-06-06 11:28:17',
 				'last_login' => '2020-06-27 23:51:36',
 				'updated_at' => '2020-06-27 10:52:29',

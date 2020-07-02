@@ -1,5 +1,8 @@
 <?php
 	//Scss path for this view file /src/sess/pages/accountsettings.scss
+
+	use App\Assets\Assets;
+	$assets = new Assets();
 ?>
 
 <?= $this->extend('template') ?>
@@ -84,6 +87,37 @@
 				</td>
 				<td><i class="far fa-window-close" id="password_cancel2"></i></td>
 			</tr>
+			<tr class="picture_view">
+				<td>Picture:</td>
+				<td>&nbsp;</td>
+				<td><i class="fas fa-edit" id="picturee_toggle"></i></td>
+			</tr>
+			<tr class="picture_edit">
+				<td>Picture:</td>
+				<td>
+					<div class="picture_form">
+						<div class="left">
+							<img src="<?= $assets->get_picture() ?>" />
+						</div>
+						<div class="right">
+							<input type="file" name="image" id="image" />
+							<label for="image" id="browse" class="btn btn-primary btn-lg">Browse</label>
+							<div class="filename">&nbsp;</div>
+							<div class="err">&nbsp;</div>
+							<div class="progress_container">
+								<div class="progress_bar">&nbsp;</div>
+								<div class="percent">0%</div>
+							</div>
+							<div class="success">Upload Complete</div>
+						</div>
+						<div class="clear"></div>
+						<div class="btn_container">
+							<button id="picture_reset" class="btn btn-danger" type="button">Upload Again</button>
+						</div>
+					</div>
+				</td>
+				<td><i class="far fa-window-close" id="picture_cancel"></i></td>
+			</tr>
 		</table>
 
 		<div class="sm">
@@ -138,6 +172,28 @@
 					<button type="button" class="btn btn-danger" id="m_password_clear">Clear</button>
 				</div>
 			</div>
+			<div class="picture">
+				<h4>Upload Picture</h4>
+				<div class="form">
+					<div class="top">
+						<img src="<?= $assets->get_picture() ?>" />
+					</div>
+					<div class="bottom">
+						<input type="file" name="image" id="m_image" />
+						<label for="m_image" id="m_browse" class="btn btn-primary btn-lg">Browse</label>
+						<div class="m_filename">&nbsp;</div>
+						<div class="m_err">&nbsp;</div>
+						<div class="m_progress_container progress_container">
+							<div class="progress_bar">&nbsp;</div>
+							<div class="percent">0%</div>
+						</div>
+						<div class="m_success">Upload Complete</div>
+					</div>
+					<div class="m_btn_container">
+						<button id="m_picture_reset" class="btn btn-danger" type="button">Upload Again</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -146,11 +202,12 @@
 	var fullname_bool = false;
 	var nickname_bool = false;
 	var password_bool = false;
+	var picture_bool = false;
 
-	_watchContainer();
+	_resize();
 
-	$(window).resize(() => {
-		_watchContainer();
+	$(window).on("click change resize", () => {
+		_resize();
 	});
 
 	$("#fullname_toggle").on("click", () => {
@@ -175,6 +232,10 @@
 
 	$("#password_cancel, #password_cancel2").on("click", () => {
 		_password();
+	});
+
+	$("#picturee_toggle, #picture_cancel").on("click", () => {
+		_picture();
 	});
 
 	$("#fullname_save").on("click", () => {
@@ -426,6 +487,133 @@
 		});
 	});
 
+	$("#image").on("change", e => {
+		$(".err").html("&nbsp;");
+
+		var filename = e.target.files[0].name;
+		var size = parseFloat(e.target.files[0].size / 1024).toFixed(2);
+		var type = e.target.files[0].type;
+
+		//Get File extention.
+		var arr = filename.split(".");
+		var arr_nums = 0;
+
+		while (arr_nums < arr.length) {
+			arr_nums++;
+		}
+
+		var file_ext = arr[arr_nums - 1];
+
+		if (filename.length > 15) {
+			filename = filename.substring(0, 15) + "..." + file_ext;
+		}
+		
+		$(".filename").text(filename);
+
+		//Validation.
+		if (type !== "image/jpeg" && type !== "image/png") {
+			$(".err").text("jpeg and png image only.");
+		} else if (size > 1024) {
+			$(".err").text("File size too large.");
+		} else {
+			$(".progress_container").css("visibility", "visible");
+
+			$("#image").upload("/imageUpload",{
+				"<?= csrf_token() ?>": "<?= csrf_hash() ?>"
+			}, (picture) => {
+				$(".picture_form .left img, #thumbnail_toggler, .user_menu .contents .top img").attr("src", '/img/users/pictures/' + picture);
+				$("#browse").css("visibility", "hidden");
+				$(".success").css("visibility", "visible");
+				$(".btn_container").css("visibility", "visible");
+			}, (prog, val) => {
+				$(".progress_bar").css("width", val + "%");
+				$(".percent").text(val + "%");
+			});
+		}
+	});
+
+	$("#picture_reset").on("click", () => {
+		var data = {
+			"<?= csrf_token() ?>": "<?= csrf_hash() ?>"
+		}
+
+		$.post('/imageUpload/remove', data, function(r) {
+			if (r == "ok") {
+				$(".picture_form .left img, #thumbnail_toggler, .user_menu .contents .top img").attr("src", "/img/nopic.png");
+				$("#browse").css("visibility", "visible");
+				$(".btn_container").css("visibility", "hidden");
+				$(".progress_container").css("visibility", "hidden");
+				$(".progress_bar").css("width", 0);
+				$(".percent").text("0");
+				$(".filename").html("&nbsp;");
+				$("#image").val("");
+			}
+		});
+	});
+
+	$("#m_image").on("change", e => {
+		var filename = e.target.files[0].name;
+		var size = parseFloat(e.target.files[0].size / 1024).toFixed(2);
+		var type = e.target.files[0].type;
+
+		//Get File extention.
+		var arr = filename.split(".");
+		var arr_nums = 0;
+
+		while (arr_nums < arr.length) {
+			arr_nums++;
+		}
+
+		var file_ext = arr[arr_nums - 1];
+
+		if (filename.length > 15) {
+			filename = filename.substring(0, 15) + "..." + file_ext;
+		}
+		
+		$(".m_filename").text(filename);
+
+		//Validation.
+		if (type !== "image/jpeg" && type !== "image/png") {
+			$(".m_err").text("jpeg and png image only.");
+		} else if (size > 1024) {
+			$(".m_err").text("File size too large.");
+		} else {
+			$(".m_progress_container").css("visibility", "visible");
+
+			$("#m_image").upload("/imageUpload",{
+				"<?= csrf_token() ?>": "<?= csrf_hash() ?>"
+			}, (picture) => {
+				$(".sm .picture .form .top img, #thumbnail_toggler2, .user_menu .contents .top ul li:first-child img").attr("src", '/img/users/pictures/' + picture);
+				$("#m_browse").css("visibility", "hidden");
+				$(".m_success").css("visibility", "visible");
+				$(".m_btn_container").css("visibility", "visible");
+			}, (prog, val) => {
+				$(".m_progress_container .progress_bar").css("width", val + "%");
+				$(".m_progress_container .percent").text(val + "%");
+			});
+		}
+	});
+
+	$("#m_picture_reset").on("click", () => {
+		var data = {
+			"<?= csrf_token() ?>": "<?= csrf_hash() ?>"
+		}
+
+		$.post('/imageUpload/remove', data, function(r) {
+			if (r == "ok") {
+				$(".sm .picture .form .top img, #thumbnail_toggler2, .user_menu .contents .top ul li:first-child img").attr("src", "/img/nopic.png");
+				$("#m_browse").css("visibility", "visible");
+				$(".m_btn_container").css("visibility", "hidden");
+				$(".m_progress_container").css("visibility", "hidden");
+				$("m_progress_container .progress_bar").css("width", 0);
+				$(".m_progress_container .percent").text("0");
+				$(".m_filename").html("&nbsp;");
+				$(".m_success").css("visibility", "none");
+				$("#m_image").val("");
+			}
+		});
+	});
+
 
 
 	$("#firstname").on("keyup", () => {
@@ -593,21 +781,43 @@
 		}
 	}
 
-	function _watchContainer() {
-		var height = $(window).height();
-		var accountsettings = $(".accountsettings .contents").height();
+	function _picture() {
+		if (!picture_bool) {
+			picture_bool = true;
+
+			$(".picture_view").hide();
+			$(".picture_edit").show();
+		} else {
+			picture_bool = false;
+
+			$(".picture_edit").hide();
+			$(".picture_view").show();
+
+			$("#browse").css("visibility", "visible");
+			$(".btn_container").css("visibility", "hidden");
+			$(".progress_container").css("visibility", "hidden");
+			$(".progress_bar").css("width", 0);
+			$(".percent").text("0");
+			$(".filename").html("&nbsp;");
+			$(".err").html("&nbsp;");
+			$(".success").css("visibility", "hidden");
+			$("#image").val("");
+		}
+	}
+
+	function _resize() {
+		var height = $(window).outerHeight();
+		var accountsettings = $("section").height() + 58;
 		var main_nav = Math.round($(".main_nav").height());
 		var new_height = height - main_nav;
 
-		if (height > accountsettings) {
+		if (height >= accountsettings) {
 			$(".accountsettings .contents").css({
 				height: new_height + "px"
 			});
-		} else {
-			$(".accountsettings .contents").css({
-				height: "auto"
-			});
 		}
+
+		//console.log(height + "/" + accountsettings);
 	}
 	
 </script>

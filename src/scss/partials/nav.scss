@@ -380,6 +380,12 @@
     }
 }
 
+@include screen-size(800px) {
+    .user_menu {
+        top: 60px;
+    }
+}
+
 @include screen-size(400px) {
     .user_menu {
         width: 100%;

@@ -96,6 +96,7 @@
 				$(".skip_container").show();
 				$(".filename").html("&nbsp;");
 				$(".pic img").attr("src", "/img/nopic.png");
+				$("#browse").val("");
 			}
 		});
 	});

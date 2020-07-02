@@ -233,7 +233,7 @@ class Users extends BaseController
 
 	public function setpicture()
 	{
-		if ($this->Assets->hasSession())
+		if ($this->Assets->hasSession() && ! $this->Assets->has_picture())
 		{
 			$data = [
 				'title' => 'Set Picture' . $this->web_title,
