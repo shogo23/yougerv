@@ -37,4 +37,29 @@
 	</div>
 </div>
 
+<script>
+	_resize();
+
+	$(window).resize(() => {
+		_resize();
+	});
+
+	function _resize() {
+		var height = $(window).outerHeight();
+		var section = $(".login_contents .contents").height();
+		var main_nav = Math.round($(".main_nav").height());
+		var new_height = height - main_nav;
+
+		if (height >= section) {
+			$(".login_contents").css({
+				height: new_height + "px"
+			});
+		} else {
+			$(".login_contents").css({
+				height: "auto"
+			});
+		}
+	}
+</script>
+
 <?= $this->endSection() ?>

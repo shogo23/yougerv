@@ -413,4 +413,11 @@ class ChannelsModel extends Model
 
 		return $videos->paginate($this->per_page, 'video');
 	}
+
+	public function fetch_failed_videos()
+	{
+		return $this->select(['id', 'slug', 'orig_filename', 'filename', 'created_at'])
+					->where('converted', 0)
+					->find();
+	}
 }

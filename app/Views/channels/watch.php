@@ -136,6 +136,12 @@
 
 	<?= $assets->hasSession() ? 'stretchTextarea("#comment");' : ''; ?>
 
+	_resize();
+
+	$(window).resize(() => {
+		_resize();
+	});
+
 	$("#comment").on("keyup change input", () => {
 		if ($("#comment").val().length > 0) {
 			$(".btns").show();
@@ -248,6 +254,23 @@
 				load_comments();
 			}
 		});
+	}
+
+	function _resize() {
+		var height = $(window).outerHeight();
+		var section = $(".watch_container").height();
+		var main_nav = Math.round($(".main_nav").height());
+		var new_height = height - main_nav;
+
+		if (height >= section) {
+			$(".watch_container").css({
+				height: new_height + "px"
+			});
+		} else {
+			$(".watch_container").css({
+				height: "auto"
+			});
+		}
 	}
 </script>
 

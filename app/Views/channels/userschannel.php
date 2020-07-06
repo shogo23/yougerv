@@ -58,6 +58,12 @@
 
 	_active();
 
+	_resize();
+
+	$(window).on("click change resize", () => {
+		_resize();
+	});
+
 	$("#userwall").on("click", () => {
 		page_active = "userwall";
 		_active();
@@ -135,9 +141,27 @@
 
 		$.post("/channel/<?= $channel_owner_id . '/' . $user_details['firstname'] . '_' . $user_details['lastname'] ?>/" + page, data, r => {
 			$(".page").html(r)
+			_resize();
 		})
 
 		$("#" + page_active).addClass("userchannel_nav_active");
+	}
+
+	function _resize() {
+		var height = $(window).outerHeight();
+		var section = $(document).height();
+		var main_nav = Math.round($(".main_nav").height());
+		var new_height = height - main_nav;
+
+		if (height >= section) {
+			$(".userschannel").css({
+				height: new_height + "px"
+			});
+		} else {
+			$(".userschannel").css({
+				height: "auto"
+			});
+		}
 	}
 
 	<?php if ($assets->hasSession()) : ?>

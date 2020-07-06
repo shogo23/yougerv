@@ -7,7 +7,7 @@
 <?= $this->section('content') ?>
 
 <div class="register_contents">
-	<div class="register_contents">
+	<div class="contents">
 		<h1>Register</h1>
 		<?php if ($validation !== null && $validation->getErrors()): ?>
 			<div class="errors alert alert-danger">
@@ -53,4 +53,28 @@
 	</div>
 </div>
 
+<script>
+	_resize();
+
+	$(window).resize(() => {
+		_resize();
+	});
+
+	function _resize() {
+		var height = $(window).outerHeight();
+		var section = $(".register_contents .contents").height();
+		var main_nav = Math.round($(".main_nav").height());
+		var new_height = height - main_nav;
+
+		if (height >= section) {
+			$(".register_contents .contents").css({
+				height: new_height + "px"
+			});
+		} else {
+			$(".register_contents .contents").css({
+				height: "auto"
+			});
+		}
+	}
+</script>
 <?= $this->endSection() ?>

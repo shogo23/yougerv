@@ -2,6 +2,7 @@
 	//Scss path for this view file /src/sess/pages/accountsettings.scss
 
 	use App\Assets\Assets;
+
 	$assets = new Assets();
 ?>
 
@@ -816,8 +817,6 @@
 				height: new_height + "px"
 			});
 		}
-
-		//console.log(height + "/" + accountsettings);
 	}
 	
 </script>

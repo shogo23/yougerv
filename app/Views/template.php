@@ -14,6 +14,8 @@
         <section>
             <?= $this->renderSection('content') ?>
         </section>
+        
+        <?= $this->include('templates/footer') ?>
     </div>
 </body>
 </html>

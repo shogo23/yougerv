@@ -4,7 +4,7 @@
 .register_contents {
     margin-top: 60px;
 
-    .register_contents {
+    .contents {
         border: 2px solid map-get($forms, borderColor);
         background-color: map-get($forms, bgColor);
         width: 80%;
@@ -12,6 +12,7 @@
         border-radius: 5px;
         margin: 0 auto;
         margin-top: 80px;
+        margin-bottom: 40px;
 
         label {
             display: block;

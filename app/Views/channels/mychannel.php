@@ -61,6 +61,16 @@
 
 	_active();
 
+	_resize();
+
+	$(window).on("click change resize", () => {
+		_resize();
+	});
+
+	$(".mychannel_container").on("click change resize", () => {
+		_resize();
+	});
+
 	$("#mywall").on("click", () => {
 		page_active = "mywall";
 		_active();
@@ -128,7 +138,25 @@
 			$("#" + page_active).addClass("mychannel_nav_active");
 			history.pushState("", "", url);
 			$(".page").html(r);
+			_resize();
 		});
+	}
+
+	function _resize() {
+		var height = $(window).outerHeight();
+		var section = $(document).height();
+		var main_nav = Math.round($(".main_nav").height());
+		var new_height = height - main_nav;
+
+		if (height >= section) {
+			$(".mychannel_container").css({
+				height: new_height + "px"
+			});
+		} else {
+			$(".mychannel_container").css({
+				height: "auto"
+			});
+		}
 	}
 </script>
 

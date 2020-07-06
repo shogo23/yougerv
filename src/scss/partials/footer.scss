@@ -1,0 +1,11 @@
+.main_footer {
+    border: 1px solid map-get($footerColor, borderColor);
+    background-color: map-get($footerColor, bgColor);
+    padding: 20px;
+    text-align: center;
+    color: map-get($footerColor, fontColor);
+
+    a {
+        color: map-get($footerColor, fontColor);
+    }
+}

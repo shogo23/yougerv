@@ -89,6 +89,7 @@ $routes->post('/notifications/clear', 'Notifications::clear');
 $routes->get('/search', 'Search::search');
 $routes->get('/videostream/(:segment)', 'Channels::videostream');
 $routes->get('/out', 'Home::out');
+$routes->get('/cron', 'Crons::run');
 
 /**
  * --------------------------------------------------------------------
