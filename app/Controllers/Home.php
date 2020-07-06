@@ -65,10 +65,11 @@ class Home extends BaseController
 
 	public function notfound()
 	{
+		http_response_code(404);
 		$data = [
 			'title' => '404 Not Found' . $this->web_title,
 		];
-
 		echo view('home/notfound', $data);
+		exit;
 	}
 }

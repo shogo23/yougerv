@@ -221,7 +221,23 @@
 			_resize_notification();
 		});
 
-		var interval = setInterval(() => {
+		if (window.location.href !== "http://theci4.test:8080/upload" && window.location.href !== "https://theci4.test:8080/upload") {
+			var interval = setInterval(() => {
+				var data = {
+					"<?= csrf_token() ?>": "<?= csrf_hash() ?>"
+				};
+
+				$.post("/notifications/check", data, r => {
+					if (r > 0 && r <= 20) {
+						$(".noti_num1, .noti_num2").show().text(r);
+					} else if (r > 20) {
+						$(".noti_num1, .noti_num2").show().text("20+");
+					} else if (r <= 0) {
+						$(".noti_num1, .noti_num2").hide().text("");
+					}
+				});
+			}, 3000);
+		} else {
 			var data = {
 				"<?= csrf_token() ?>": "<?= csrf_hash() ?>"
 			};
@@ -235,7 +251,7 @@
 					$(".noti_num1, .noti_num2").hide().text("");
 				}
 			});
-		}, 3000);
+		}
 
 		var notifications = new Promise((resolve, reject) => {
 			$("#notification1, #notification2").on("click", () => {

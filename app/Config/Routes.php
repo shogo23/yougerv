@@ -19,8 +19,19 @@ $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
-$routes->set404Override('App\Controllers\Home::notfound');
 $routes->setAutoRoute(true);
+
+if (isset($_SERVER['REQUEST_URI']))
+{
+	$uri = explode('/', $_SERVER['REQUEST_URI']);
+	$val_1 = (!isset($uri[1])) ? '' : $uri[1];
+	$val_2 = (!isset($uri[2])) ? '' : $uri[2];
+
+	if ($val_1 !== 'vids' && $val_2 !== 'progress_log')
+	{
+		$routes->set404Override('App\Controllers\Home::notfound');
+	}	
+}
 
 /**
  * --------------------------------------------------------------------

@@ -5,68 +5,68 @@ use App\Models\ChannelsModel;
 
 class Crons extends BaseController
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
+	public function __construct()
+	{
+		parent::__construct();
+	}
 
-    public function run()
-    {
-        //Current date and time.
-        $now = Carbon::now();
+	public function run()
+	{
+		//Current date and time.
+		$now = Carbon::now();
 
-        //Path to uploaded videos to convert.
-        $tmp_path = ROOTPATH . 'public/vids/tmp/';
+		//Path to uploaded videos to convert.
+		$tmp_path = ROOTPATH . 'public/vids/tmp/';
 
-        //Path to video thumbnails.
-        $thumb_path = ROOTPATH . 'public/vids/thumbs/';
-        
-        //Path to progress logs.
-        $progress_path = ROOTPATH . 'public/vids/progress_log/';
-        
-        //Path to converted videos.
-	    $v_output_path = ROOTPATH . 'public/vids/outputs/';
+		//Path to video thumbnails.
+		$thumb_path = ROOTPATH . 'public/vids/thumbs/';
 
-        $channels = new ChannelsModel();
+		//Path to progress logs.
+		$progress_path = ROOTPATH . 'public/vids/progress_log/';
 
-        //Check expired records for removal.
-        foreach ($channels->fetch_failed_videos() as $video)
-        {        
-            //Remove item if expired.
-            if ($now >= Carbon::create($video['created_at'])->add(12, 'hours'))
-            {
-                $file_name = rtrim($video['filename'], '.mp4');
-                $orig_filename = explode('.', $video['orig_filename']);
-                $orig_filename_ext = end($orig_filename);
-                $tmp_file = $file_name . '.' . $orig_filename_ext;
+		//Path to converted videos.
+		$v_output_path = ROOTPATH . 'public/vids/outputs/';
 
-                //Remove video file from tmp dir.
-                if (file_exists($tmp_path . $tmp_file))
-                {
-                    unlink($tmp_path . $tmp_file);
-                }
+		$channels = new ChannelsModel();
 
-                //Remove progess log file.
-                if (file_exists($progress_path. 'progress_' . $video['slug'] . '.txt'))
-                {
-                    unlink($progress_path. 'progress_' . $video['slug'] . '.txt');
-                }
+		//Check expired records for removal.
+		foreach ($channels->fetch_failed_videos() as $video)
+		{
+			//Remove item if expired.
+			if ($now >= Carbon::create($video['created_at'])->add(12, 'hours'))
+			{
+				$file_name         = rtrim($video['filename'], '.mp4');
+				$orig_filename     = explode('.', $video['orig_filename']);
+				$orig_filename_ext = end($orig_filename);
+				$tmp_file          = $file_name . '.' . $orig_filename_ext;
 
-                //Remove thumbnail.
-                if (file_exists($thumb_path . $video['slug'] . '.jpg'))
-                {
-                    unlink($thumb_path . $video['slug'] . '.jpg');
-                }
+				//Remove video file from tmp dir.
+				if (file_exists($tmp_path . $tmp_file))
+				{
+					unlink($tmp_path . $tmp_file);
+				}
 
-                //Remove video file from output dir.
-                if (file_exists($v_output_path . $video['filename']))
-                {
-                    unlink($v_output_path . $video['filename']);
-                }
+				//Remove progess log file.
+				if (file_exists($progress_path . 'progress_' . $video['slug'] . '.txt'))
+				{
+					unlink($progress_path . 'progress_' . $video['slug'] . '.txt');
+				}
 
-                //Delete record from database.
-                $channels->delete_video($video['id']);
-            }
-        }
-    }
+				//Remove thumbnail.
+				if (file_exists($thumb_path . $video['slug'] . '.jpg'))
+				{
+					unlink($thumb_path . $video['slug'] . '.jpg');
+				}
+
+				//Remove video file from output dir.
+				if (file_exists($v_output_path . $video['filename']))
+				{
+					unlink($v_output_path . $video['filename']);
+				}
+
+				//Delete record from database.
+				$channels->delete_video($video['id']);
+			}
+		}
+	}
 }
