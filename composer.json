@@ -1,8 +1,8 @@
 {
-    "name": "codeigniter4/codeigniter4",
+    "name": "gervic23/ci4",
     "type": "project",
-    "description": "The CodeIgniter framework v4",
-    "homepage": "https://codeigniter.com",
+    "description": "Is a video streaming website created by Gervic as part of portfolio.",
+    "homepage": "http://onegerv.ml",
     "license": "MIT",
     "require": {
         "php": ">=7.2",
