@@ -1,5 +1,5 @@
 {
-    "name": "gervic23/ci4",
+    "name": "shogo23/yougerv",
     "type": "project",
     "description": "Is a video streaming website created by Gervic as part of portfolio.",
     "homepage": "http://onegerv.ml",
@@ -32,10 +32,5 @@
             "CodeIgniter\\ComposerScripts::postUpdate",
             "bash admin/setup.sh"
         ]
-    },
-    "support": {
-        "forum": "http://forum.codeigniter.com/",
-        "source": "https://github.com/codeigniter4/CodeIgniter4",
-        "slack": "https://codeigniterchat.slack.com"
     }
 }
