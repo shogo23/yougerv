@@ -1,7 +1,7 @@
 {
     "name": "shogo23/yougerv",
     "type": "project",
-    "description": "Is a video streaming website created by Gervic as part of portfolio.",
+    "description": "Is a video streaming website created by [Gervic](https://www.facebook.com/gervic23) as part of portfolio written on CodeIgniter 4 Framework.",
     "homepage": "http://onegerv.ml",
     "license": "MIT",
     "require": {

@@ -1,5 +1,5 @@
 {
-  "name": "ci4",
+  "name": "YouGerv",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,8 +10,8 @@
     "watch:prod": "webpack --watch --mode='production'"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Gervic",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
