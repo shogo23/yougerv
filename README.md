@@ -98,5 +98,19 @@ Open /App/Config/App.php and change the value $baseURL to 'http://youegerv.test'
 
 Restart apache2 and now you can access the website at http://yougerv.test
 
+#### User Accounts
+Here are the following usernames. (Password for all accounts: enduser)
+- gervic23
+- serah23
+- claire23
+- yuel23
+- terra23
+- tifa23
+- vanille23
+- yuffie
+- rydia23
+- lumina23
+- garnet23
+
 ## Contact Author
 Email me at gervic@gmx.com or message me on facebook at https://www.facebook.comn/gervic23
