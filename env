@@ -51,18 +51,22 @@ ffmpeg.threads      = 100
 
 # app.CSPEnabled = false
 
+
+app.website.title = 'YouGerv'
+
+
 #--------------------------------------------------------------------
 # DATABASE
 #--------------------------------------------------------------------
 
 database.default.hostname = localhost
-database.default.database = ci4
+database.default.database = yourdatabase
 database.default.username = root
 database.default.password = root
 database.default.DBDriver = MySQLi
 
 # database.tests.hostname = localhost
-# database.tests.database = ci4
+# database.tests.database = theci4
 # database.tests.username = root
 # database.tests.password = root
 # database.tests.DBDriver = MySQLi
