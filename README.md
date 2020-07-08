@@ -83,7 +83,7 @@ Open C:\Windows\system32\divers\etc\host and add this...
 ```
 Open C:\xampp\apache\conf\extra\httpd-vhost.conf if your are a xampp user and add this configuration.
 ```bash
-<VirtualHost *:8080>
+<VirtualHost *:80>
     ServerAdmin youremail@email.com
     DocumentRoot "C:/xampp/htdocs/yougerv/public"
     ServerName yougervtest
